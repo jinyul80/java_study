@@ -11,7 +11,7 @@ public class Main {
 
         String fail_person = array_check1(participants, finished_person);
 
-        System.out.println("탈라자: " + fail_person);
+        System.out.println("탈락자: " + fail_person);
 
     }
 
