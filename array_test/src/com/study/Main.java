@@ -1,19 +1,24 @@
 package com.study;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        String[] participants = {"Joe", "Leo", "James", "Joe"};
-        String[] finished_person = {"Joe", "James", "Leo"};
+//        String[] participants = {"Joe", "Leo", "James", "Joe"};
+//        String[] finished_person = {"Joe", "James", "Leo"};
+//
+//        String fail_person = array_check1(participants, finished_person);
+//
+//        System.out.println("탈락자: " + fail_person);
 
-        String fail_person = array_check1(participants, finished_person);
+        String[] phone_book = {"119", "97674223", "1195524421"};
 
-        System.out.println("탈락자: " + fail_person);
+        Solution s1 = new Solution();
+        boolean r = s1.solution2(phone_book);
+
+        System.out.println("Anser: " + r);
 
     }
 
@@ -66,4 +71,27 @@ public class Main {
         return answer;
     }
 
+
+}
+
+class Solution {
+    public boolean solution2(String[] phone_book) {
+        boolean answer = true;
+
+        HashMap<String, Integer> hm = new HashMap<>();
+        for (String pNumber : phone_book) {
+            hm.put(pNumber, 0);
+        }
+
+        Set<String> keys = hm.keySet();
+
+        for (String key : keys){
+            if(keys.stream().filter(s -> s.startsWith(key)).count() >= 2) {
+                answer = false;
+                break;
+            }
+        }
+
+        return answer;
+    }
 }
