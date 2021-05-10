@@ -1,6 +1,8 @@
 package com.study;
 
+import java.sql.Array;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -26,6 +28,13 @@ public class Main {
 
         boolean r = s1.solution2(phone_book);
         System.out.println("Answer: " + r);
+
+        int[] arr =  {1, 5, 2, 6, 3, 7, 4};
+        int[][] com = {{2, 5, 3}, {4, 4, 1}, {1, 7, 3}};
+
+        int[] r3 = s1.solution3(arr, com);
+
+        System.out.println(Arrays.toString(r3));
 
     }
 
@@ -71,4 +80,25 @@ class Solution {
 
         return answer;
     }
+
+    public int[] solution3(int[] array, int[][] commands) {
+        int[] answer = new int[commands.length];
+
+        for (int i = 0; i < commands.length; i++) {
+
+            int[] command = commands[i];
+
+            int s_idx = command[0] - 1;
+            int e_idx = command[1] ;
+            int idx = command[2] - 1;
+
+            int[] temp = Arrays.stream(array, s_idx, e_idx).toArray();
+            Arrays.sort(temp);
+
+            answer[i] = temp[idx];
+        }
+
+        return answer;
+    }
+
 }
