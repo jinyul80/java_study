@@ -1,9 +1,5 @@
 package com.study;
 
-import com.sun.jdi.IncompatibleThreadStateException;
-
-import javax.management.relation.RelationSupport;
-import java.sql.Array;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -42,12 +38,19 @@ public class Main {
 
 //        // Test4
 
-        int n = 5;
-        int[] lost = {1, 2, 3};
-        int[] reserve = {2, 3, 4};
+//        int n = 5;
+//        int[] lost = {1, 2, 3};
+//        int[] reserve = {2, 3, 4};
+//
+//        int r4 = s1.solution4(n, lost, reserve);
+//        System.out.println("참석 가능 인원: " + r4);
 
-        int r4 = s1.solution4(n, lost, reserve);
-        System.out.println("참석 가능 인원: " + r4);
+        // 크레인 인형뽑기
+        int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
+        int[] moves = {1,5,3,5,1,2,1,4};
+
+        int result5 = s1.solution5(board, moves);
+        System.out.println("터진 인형: " + result5);
 
     }
 
@@ -156,6 +159,56 @@ class Solution {
 
         System.out.println("참석 명단: " + participant);
         answer = participant.size();
+
+        return answer;
+    }
+
+    // 크레인 인형뽑기
+    public int solution5(int[][] board, int[] moves) {
+        int answer = 0;
+
+        Stack<Integer> basket = new Stack<>();
+
+        List<LinkedList<Integer>> boardList = new ArrayList<>();
+
+        int rowSize = board.length;
+        int colSize = board[0].length;
+
+        for (int col = 0; col < colSize ; col++) {
+            LinkedList<Integer> qu = new LinkedList<>();
+
+            for (int row = 0; row < rowSize; row++) {
+                int toyNum = board[row][col];
+                if (toyNum > 0) {
+                    qu.add(toyNum);
+                }
+            }
+
+            boardList.add(qu);
+        }
+
+        for(int crane: moves) {
+            int idx = crane - 1;
+            var qu = boardList.get(idx);
+
+            if ( qu.size() > 0) {
+                int toyNum = qu.pop();
+
+                if (basket.size() == 0) {
+                    basket.add(toyNum);
+
+                } else {
+                    int testNum = basket.peek();
+
+                    if (toyNum == testNum) {
+                        answer += 2;
+                        basket.pop();
+                    } else {
+                        basket.add(toyNum);
+                    }
+                }
+            }
+        }
 
         return answer;
     }
