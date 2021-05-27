@@ -45,12 +45,18 @@ public class Main {
 //        int r4 = s1.solution4(n, lost, reserve);
 //        System.out.println("참석 가능 인원: " + r4);
 
-        // 크레인 인형뽑기
-        int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
-        int[] moves = {1,5,3,5,1,2,1,4};
+//        // 크레인 인형뽑기
+//        int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
+//        int[] moves = {1,5,3,5,1,2,1,4};
+//
+//        int result5 = s1.solution5(board, moves);
+//        System.out.println("터진 인형: " + result5);
 
-        int result5 = s1.solution5(board, moves);
-        System.out.println("터진 인형: " + result5);
+        // 모의고사
+        int[] answers = {1,3,2,4,2};
+        int[] result = s1.solution6(answers);
+
+        System.out.println("출력: " + Arrays.toString(result));
 
     }
 
@@ -212,5 +218,62 @@ class Solution {
 
         return answer;
     }
+
+    // 모의고사
+    public int[] solution6(int[] answers) {
+        int[] answer = {};
+        List<Integer> tempAnswer = new ArrayList<>();
+
+        HashMap<Integer, int[]> hm = new HashMap<>();
+        hm.put(1, new int[]{1, 2, 3, 4, 5});
+        hm.put(2, new int[]{2, 1, 2, 3, 2, 4, 2, 5});
+        hm.put(3, new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5});
+
+        int[] score = new int[3];
+
+        for (int i = 0; i < answers.length ; i++) {
+            // people1
+            int ansIdx = i % 5;
+            int[] answerList = hm.get(1);
+
+            if (answers[i] == answerList[ansIdx] ) {
+                score[0] += 1;
+            }
+
+            // people2
+            ansIdx = i % 8;
+            answerList = hm.get(2);
+
+            if (answers[i] == answerList[ansIdx] ) {
+                score[1] += 1;
+            }
+
+            // people3
+            ansIdx = i % 10;
+            answerList = hm.get(3);
+
+            if (answers[i] == answerList[ansIdx] ) {
+                score[2] += 1;
+            }
+
+        }
+
+        int maxScore = Arrays.stream(score).max().getAsInt();
+        if (maxScore == 0) return answer;
+
+        for (int i = 0; i < score.length ; i++) {
+            if ( score[i] == maxScore ) {
+                tempAnswer.add(i+1);
+            }
+        }
+
+        answer = new int[tempAnswer.size()];
+        for (int i = 0; i < tempAnswer.size() ; i++) {
+            answer[i] = tempAnswer.get(i);
+        }
+
+        return answer;
+    }
+
 
 }
