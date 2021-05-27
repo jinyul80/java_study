@@ -9,54 +9,61 @@ public class Main {
         Solution s1 = new Solution();
 
         // Hash 테스트1
-//        String[] participants = {"Joe", "Leo", "James", "Joe"};
-//        String[] completion = {"Joe", "James", "Leo"};
-//
-//        String r1 = s1.solution1(participants, completion);
-//
-//        if (r1.equals("")) {
-//            System.out.println("모두 완주성공");
-//
-//        } else {
-//            System.out.println("탈락자: " + r1);
-//        }
-//
-//        // Hash 테스트2
-//        // String[] phone_book = {"97674223", "1195524421", "119"};
-//        String[] phone_book = {"123", "456", "789"};
-//
-//        boolean r = s1.solution2(phone_book);
-//        System.out.println("Answer: " + r);
-//
-//        // Test3
-//        int[] arr =  {1, 5, 2, 6, 3, 7, 4};
-//        int[][] com = {{2, 5, 3}, {4, 4, 1}, {1, 7, 3}};
-//
-//        int[] r3 = s1.solution3(arr, com);
-//
-//        System.out.println(Arrays.toString(r3));
+        /*String[] participants = {"Joe", "Leo", "James", "Joe"};
+        String[] completion = {"Joe", "James", "Leo"};
 
-//        // Test4
+        String r1 = s1.solution1(participants, completion);
 
-//        int n = 5;
-//        int[] lost = {1, 2, 3};
-//        int[] reserve = {2, 3, 4};
-//
-//        int r4 = s1.solution4(n, lost, reserve);
-//        System.out.println("참석 가능 인원: " + r4);
+        if (r1.equals("")) {
+            System.out.println("모두 완주성공");
 
-//        // 크레인 인형뽑기
-//        int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
-//        int[] moves = {1,5,3,5,1,2,1,4};
-//
-//        int result5 = s1.solution5(board, moves);
-//        System.out.println("터진 인형: " + result5);
+        } else {
+            System.out.println("탈락자: " + r1);
+        }*/
+
+        // Hash 테스트2
+        /*String[] phone_book = {"97674223", "1195524421", "119"};
+
+        boolean r = s1.solution2(phone_book);
+        System.out.println("Answer: " + r);
+
+        // Test3
+        int[] arr =  {1, 5, 2, 6, 3, 7, 4};
+        int[][] com = {{2, 5, 3}, {4, 4, 1}, {1, 7, 3}};
+
+        int[] r3 = s1.solution3(arr, com);
+
+        System.out.println(Arrays.toString(r3));*/
+
+
+        // Test4
+        /*int n = 5;
+        int[] lost = {1, 2, 3};
+        int[] reserve = {2, 3, 4};
+
+        int r4 = s1.solution4(n, lost, reserve);
+        System.out.println("참석 가능 인원: " + r4);*/
+
+        // 크레인 인형뽑기
+        /*int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
+        int[] moves = {1,5,3,5,1,2,1,4};
+
+        int result5 = s1.solution5(board, moves);
+        System.out.println("터진 인형: " + result5);
+*/
 
         // 모의고사
-        int[] answers = {1,3,2,4,2};
+        /*int[] answers = {1,3,2,4,2};
         int[] result = s1.solution6(answers);
 
-        System.out.println("출력: " + Arrays.toString(result));
+        System.out.println("출력: " + Arrays.toString(result));*/
+
+        // 소수 만들기
+        int[] nums = {1,2,7,6,4};
+        int re = s1.solution7(nums);
+
+        System.out.println("소수의 개수: " + re);
+
 
     }
 
@@ -124,19 +131,18 @@ class Solution {
     }
 
     public int solution4(int n, int[] lost, int[] reserve) {
-        int answer = 0;
 
         List<Integer> participant = new ArrayList<>();
 
         List<Integer> lostList = new ArrayList<>();
-        for(int num: lost) {
+        for (int num : lost) {
             if (IntStream.of(reserve).noneMatch(x -> x == num)) {
                 lostList.add(num);
             }
         }
 
         List<Integer> reserveList = new ArrayList<>();
-        for(int num: reserve) {
+        for (int num : reserve) {
             if (IntStream.of(lost).noneMatch(x -> x == num)) {
                 reserveList.add(num);
             }
@@ -145,14 +151,14 @@ class Solution {
         for (int i = 1; i <= n; i++) {
 
             if (lostList.contains(i)) {
-                if(reserveList.contains(i)) {
+                if (reserveList.contains(i)) {
                     participant.add(i);
                     reserveList.remove((Integer) i);
                 } else {
-                    if(reserveList.contains(i - 1)) {
+                    if (reserveList.contains(i - 1)) {
                         participant.add(i);
                         reserveList.remove((Integer) (i - 1));
-                    } else if(reserveList.contains(i + 1)) {
+                    } else if (reserveList.contains(i + 1)) {
                         participant.add(i);
                         reserveList.remove((Integer) (i + 1));
                     }
@@ -164,7 +170,7 @@ class Solution {
         }
 
         System.out.println("참석 명단: " + participant);
-        answer = participant.size();
+        int answer = participant.size();
 
         return answer;
     }
@@ -180,7 +186,7 @@ class Solution {
         int rowSize = board.length;
         int colSize = board[0].length;
 
-        for (int col = 0; col < colSize ; col++) {
+        for (int col = 0; col < colSize; col++) {
             LinkedList<Integer> qu = new LinkedList<>();
 
             for (int row = 0; row < rowSize; row++) {
@@ -193,11 +199,11 @@ class Solution {
             boardList.add(qu);
         }
 
-        for(int crane: moves) {
+        for (int crane : moves) {
             int idx = crane - 1;
             var qu = boardList.get(idx);
 
-            if ( qu.size() > 0) {
+            if (qu.size() > 0) {
                 int toyNum = qu.pop();
 
                 if (basket.size() == 0) {
@@ -231,12 +237,12 @@ class Solution {
 
         int[] score = new int[3];
 
-        for (int i = 0; i < answers.length ; i++) {
+        for (int i = 0; i < answers.length; i++) {
             // people1
             int ansIdx = i % 5;
             int[] answerList = hm.get(1);
 
-            if (answers[i] == answerList[ansIdx] ) {
+            if (answers[i] == answerList[ansIdx]) {
                 score[0] += 1;
             }
 
@@ -244,7 +250,7 @@ class Solution {
             ansIdx = i % 8;
             answerList = hm.get(2);
 
-            if (answers[i] == answerList[ansIdx] ) {
+            if (answers[i] == answerList[ansIdx]) {
                 score[1] += 1;
             }
 
@@ -252,7 +258,7 @@ class Solution {
             ansIdx = i % 10;
             answerList = hm.get(3);
 
-            if (answers[i] == answerList[ansIdx] ) {
+            if (answers[i] == answerList[ansIdx]) {
                 score[2] += 1;
             }
 
@@ -261,16 +267,53 @@ class Solution {
         int maxScore = Arrays.stream(score).max().getAsInt();
         if (maxScore == 0) return answer;
 
-        for (int i = 0; i < score.length ; i++) {
-            if ( score[i] == maxScore ) {
-                tempAnswer.add(i+1);
+        for (int i = 0; i < score.length; i++) {
+            if (score[i] == maxScore) {
+                tempAnswer.add(i + 1);
             }
         }
 
         answer = new int[tempAnswer.size()];
-        for (int i = 0; i < tempAnswer.size() ; i++) {
+        for (int i = 0; i < tempAnswer.size(); i++) {
             answer[i] = tempAnswer.get(i);
         }
+
+        return answer;
+    }
+
+    // 소수 만들기
+    public int solution7(int[] nums) {
+        int answer = 0;
+
+        // List<Integer> findList = new ArrayList<>();
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    // System.out.println(String.format("인덱스 : %d, %d, %d", i, j, k));
+                    // System.out.println(String.format("숫자 : %d, %d, %d", nums[i], nums[j], nums[k]));
+
+                    int sum = nums[i] + nums[j] + nums[k];
+
+                    boolean flag = false;
+
+                    int maxNum = (int) Math.sqrt(sum);
+                    for (int num = 2; num <= maxNum; num++) {
+                        if (sum % num == 0) {
+                            flag = true;
+                            break;
+                        }
+                    }
+
+                    if (!flag) {
+                        answer++;
+                        // findList.add(sum);
+                    }
+                }
+            }
+        }
+
+        // System.out.println(Arrays.toString(findList.toArray()));
 
         return answer;
     }
