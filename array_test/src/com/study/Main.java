@@ -59,12 +59,17 @@ public class Main {
         System.out.println("출력: " + Arrays.toString(result));*/
 
         // 소수 만들기
-        int[] nums = {1,2,7,6,4};
+        /*int[] nums = {1,2,7,6,4};
         int re = s1.solution7(nums);
 
-        System.out.println("소수의 개수: " + re);
+        System.out.println("소수의 개수: " + re);*/
 
+        // 로또의 최고 순위와 최저 순위
+        int[] lottos = {45, 4, 35, 20, 3, 9};
+        int[] win_nums = {20, 9, 3, 45, 4, 35};
 
+        int[] re = s1.solution8(lottos, win_nums);
+        System.out.println("최고순위: " + re[0] + ", 최저순위: " + re[1]);
     }
 
 }
@@ -318,5 +323,30 @@ class Solution {
         return answer;
     }
 
+    // 로또의 최고 순위와 최저 순위
+    public int[] solution8(int[] lottos, int[] win_nums) {
+        int[] answer = new int[2];
+
+        int estimateMatchCount = 0;
+        int actualMatchCount = 0;
+
+        for (int num : lottos)
+        {
+            if ( num == 0) {
+                estimateMatchCount++;
+            } else {
+                boolean flag = Arrays.stream(win_nums).anyMatch(n -> n == num);
+                if (flag) {
+                    estimateMatchCount++;
+                    actualMatchCount++;
+                }
+            }
+        }
+
+        answer[0] = estimateMatchCount == 0 ? 6 : 7 - estimateMatchCount;
+        answer[1] = actualMatchCount == 0 ? 6 : 7 - actualMatchCount;
+
+        return answer;
+    }
 
 }
