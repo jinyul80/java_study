@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,4 +35,7 @@ public class Board {
     @ManyToOne
     @JoinColumn(name="userId")
     private User user;
+
+    @OneToMany(mappedBy = "board")
+    private List<Reply> reply;
 }
