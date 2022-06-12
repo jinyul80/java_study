@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -33,6 +34,34 @@ class UserServiceTest {
 
         User findUser = userRepository.findById(id).get();
 
-        Assertions.assertThat(user.getUsername()).isEqualTo(findUser.getUsername());
+        assertThat(user.getUsername()).isEqualTo(findUser.getUsername());
+    }
+
+    @Test
+    void updateUser() {
+        User reqUser = new User();
+
+        int id = 4;
+        reqUser.setEmail("jini" + id + "@gmail.com");
+        reqUser.setPassword("test5678");
+
+        User user = userService.updateUser(id, reqUser);
+
+        assertThat(reqUser.getEmail()).isEqualTo(user.getEmail());
+        assertThat(reqUser.getPassword()).isEqualTo(user.getPassword());
+    }
+
+    @Test
+    void updateUserFail() {
+        User reqUser = new User();
+
+        int id = 1;
+        reqUser.setEmail("jini" + id + "@gmail.com");
+        reqUser.setPassword("test5678");
+
+        IllegalArgumentException e = org.junit.jupiter.api.Assertions.assertThrows(IllegalArgumentException.class,
+                () -> userService.updateUser(id, reqUser));
+
+        assertThat(e.getMessage()).isEqualTo("수정에 실패하였습니다.");
     }
 }

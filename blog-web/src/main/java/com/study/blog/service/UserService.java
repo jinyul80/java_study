@@ -22,4 +22,18 @@ public class UserService {
         return user.getId();
     }
 
+    public User updateUser(int id, User requestUser) {
+
+        User user = userRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("수정에 실패하였습니다.");
+        });
+
+        user.setPassword(requestUser.getPassword());
+        user.setEmail(requestUser.getEmail());
+
+        userRepository.save(user);
+
+        return user;
+    }
+
 }
