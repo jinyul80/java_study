@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class UserService {
@@ -22,6 +24,10 @@ public class UserService {
         return user.getId();
     }
 
+    public Optional<User> findUser(int id) {
+        return userRepository.findById(id);
+    }
+
     public User updateUser(int id, User requestUser) {
 
         User user = userRepository.findById(id).orElseThrow(() -> {
@@ -34,6 +40,17 @@ public class UserService {
         userRepository.save(user);
 
         return user;
+    }
+
+    public void deleteUser(int id) {
+        try {
+            userRepository.deleteById(id);
+            System.out.println("사용자 삭제 완료, ID: " + id);
+
+        } catch (Exception e) {
+            throw new IllegalArgumentException("사용자 삭제 실패, ID: " + id);
+        }
+
     }
 
 }

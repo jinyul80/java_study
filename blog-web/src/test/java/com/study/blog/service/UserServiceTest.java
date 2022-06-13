@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -63,5 +65,25 @@ class UserServiceTest {
                 () -> userService.updateUser(id, reqUser));
 
         assertThat(e.getMessage()).isEqualTo("수정에 실패하였습니다.");
+    }
+
+    @Test
+    void deleteUser() {
+        int id = 1;
+
+        userService.deleteUser(id);
+
+        Optional<User> opt = userService.findUser(id);
+        assertThat(opt.isEmpty()).isEqualTo(true);
+    }
+
+    @Test
+    void deleteUserFail() {
+        int id = -1;
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(id));
+
+        assertThat(e.getClass()).isEqualTo(IllegalArgumentException.class);
+
     }
 }
