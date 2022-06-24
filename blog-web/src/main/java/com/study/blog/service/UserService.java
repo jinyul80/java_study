@@ -1,5 +1,6 @@
 package com.study.blog.service;
 
+import com.study.blog.model.RoleEnum;
 import com.study.blog.model.User;
 import com.study.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,25 @@ public class UserService {
     }
 
     public int join(User user) {
+        validateDuplicateUser(user);
+
+        if (user.getRole() == null) {
+            user.setRole(RoleEnum.USER);
+        }
+
         userRepository.save(user);
         return user.getId();
     }
 
     public Optional<User> findUser(int id) {
         return userRepository.findById(id);
+    }
+
+    public void validateDuplicateUser(User user) {
+        userRepository.findByUsername(user.getUsername())
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
     }
 
     public User updateUser(int id, User requestUser) {

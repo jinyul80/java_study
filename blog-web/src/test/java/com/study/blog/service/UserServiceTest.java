@@ -40,6 +40,22 @@ class UserServiceTest {
     }
 
     @Test
+    void joinFail() {
+        User user = new User();
+        user.setUsername("jini");
+        user.setPassword("123456");
+        user.setEmail("jini@gmail.com");
+        user.setRole(RoleEnum.USER);
+
+        int id = userService.join(user);
+
+        IllegalStateException e = assertThrows(IllegalStateException.class,
+                () -> userService.join(user));
+
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+    }
+
+    @Test
     void updateUser() {
         User reqUser = new User();
 
