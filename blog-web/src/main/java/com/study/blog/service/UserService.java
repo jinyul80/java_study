@@ -67,4 +67,8 @@ public class UserService {
 
     }
 
+    public Optional<User> login(User user) {
+        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+    }
+
 }
