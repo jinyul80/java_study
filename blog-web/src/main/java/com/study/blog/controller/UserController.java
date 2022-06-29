@@ -26,12 +26,12 @@ public class UserController {
         this.session = session;
     }
 
-    @GetMapping("user/joinForm")
+    @GetMapping("/joinForm")
     public String joinForm() {
         return "user/joinForm";
     }
 
-    @GetMapping("user/loginForm")
+    @GetMapping("/loginForm")
     public String loginForm() {
         return "user/loginForm";
     }

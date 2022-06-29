@@ -38,7 +38,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/blog/user/login",
+                url: "/user/login",
                 data: JSON.stringify(data),
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
@@ -46,7 +46,7 @@
                 .done(function (resp) {
                     if (resp.status == 200) {
                         alert("로그인이 완료되었습니다.");
-                        location.href = "/blog";
+                        location.href = "/";
                     } else {
                         alert("Username 또는 Password가 틀렸습니다.");
                     }
