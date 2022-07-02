@@ -21,29 +21,29 @@ class UserControllerTest {
     @Autowired
     UserController userController;
 
-    @Test
-    void login() {
+    // @Test
+    // void login() {
+    //
+    //     var user = new User();
+    //     user.setUsername("jini");
+    //     user.setPassword("1234");
+    //
+    //     ResponseDto<Integer> result = userController.login(user);
+    //
+    //     assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
+    // }
 
-        var user = new User();
-        user.setUsername("jini");
-        user.setPassword("1234");
-
-        ResponseDto<Integer> result = userController.login(user);
-
-        assertThat(result.getStatus()).isEqualTo(HttpStatus.OK.value());
-    }
-
-    @Test
-    void loginFail() {
-
-        var user = new User();
-        user.setUsername("jini");
-        user.setPassword("1");
-
-        ResponseDto<Integer> result = userController.login(user);
-
-        assertThat(result.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
+    // @Test
+    // void loginFail() {
+    //
+    //     var user = new User();
+    //     user.setUsername("jini");
+    //     user.setPassword("1");
+    //
+    //     ResponseDto<Integer> result = userController.login(user);
+    //
+    //     assertThat(result.getStatus()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    // }
 
 
 }

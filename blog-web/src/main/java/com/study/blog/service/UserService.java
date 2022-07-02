@@ -3,7 +3,9 @@ package com.study.blog.service;
 import com.study.blog.model.RoleEnum;
 import com.study.blog.model.User;
 import com.study.blog.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,17 +13,19 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
 
-    @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final BCryptPasswordEncoder encoder;
 
     public int join(User user) {
         validateDuplicateUser(user);
+
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        user.setPassword(encPassword);
 
         if (user.getRole() == null) {
             user.setRole(RoleEnum.USER);
@@ -65,10 +69,6 @@ public class UserService {
             throw new IllegalArgumentException("사용자 삭제 실패, ID: " + id);
         }
 
-    }
-
-    public Optional<User> login(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
     }
 
 }
