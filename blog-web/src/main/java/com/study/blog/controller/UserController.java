@@ -36,4 +36,9 @@ public class UserController {
         return userService.join(user);
     }
 
+    @GetMapping("/user/form")
+    public String userForm() {
+        return "user/form";
+    }
+
 }

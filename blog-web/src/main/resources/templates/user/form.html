@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/default_layout}">
+<!-- Content -->
+<div layout:fragment="content">
+    <div class="container m-2">
+        <div class="row">
+            <p th:text="${#authentication}">로그인 객체</p>
+        </div>
+        <div class="row">
+            <p th:text="${#authentication.name}">사용자 이름</p>
+        </div>
+        <div class="row">
+            <p th:text="${#authentication.authorities}">사용자 권한</p>
+        </div>
+        <div class="row">
+            <p th:text="${#authentication.authenticated}">로그인 여부</p>
+        </div>
+    </div>
+</div>
+
+</html>
