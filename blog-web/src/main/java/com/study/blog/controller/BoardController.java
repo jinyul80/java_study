@@ -10,9 +10,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class BoardController {
 
     @GetMapping({"", "/"})
-    public String index(Model model,
-                        @AuthenticationPrincipal UserDetail user) {
-        model.addAttribute("principal", user);
+    public String index() {
         return "index";
     }
+
+    // 컨트롤러에서 로그인유저 객체를 조회할 때
+    // @GetMapping({"", "/"})
+    // public String index(Model model,
+    //                     @AuthenticationPrincipal UserDetail user) {
+    //     model.addAttribute("principal", user);
+    //     return "index";
+    // }
 }
