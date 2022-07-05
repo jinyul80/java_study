@@ -36,9 +36,9 @@ public class UserController {
         return userService.join(user);
     }
 
-    @GetMapping("/user/form")
+    @GetMapping("/user/updateForm")
     public String userForm() {
-        return "user/form";
+        return "user/updateForm";
     }
 
 }
