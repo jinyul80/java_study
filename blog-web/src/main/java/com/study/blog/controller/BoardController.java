@@ -5,6 +5,9 @@ import com.study.blog.dto.ResponseDto;
 import com.study.blog.model.Board;
 import com.study.blog.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -21,8 +24,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping({"", "/"})
-    public String index(Model model) {
-        model.addAttribute("boards", boardService.getBoardList());
+    public String index(Model model, @PageableDefault(size=3, sort="id", direction = Sort.Direction.DESC)Pageable pageable) {
+        model.addAttribute("boards", boardService.getBoardList(pageable));
         return "index";
     }
 

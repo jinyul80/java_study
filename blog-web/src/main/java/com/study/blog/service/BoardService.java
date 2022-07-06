@@ -4,6 +4,8 @@ import com.study.blog.model.Board;
 import com.study.blog.model.User;
 import com.study.blog.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +24,8 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public List<Board> getBoardList() {
-        return boardRepository.findAll();
+    public Page<Board> getBoardList(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 
 }
