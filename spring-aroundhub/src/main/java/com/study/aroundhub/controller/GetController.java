@@ -1,6 +1,6 @@
 package com.study.aroundhub.controller;
 
-import com.study.aroundhub.dto.MemberDTO;
+import com.study.aroundhub.data.dto.MemberDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;

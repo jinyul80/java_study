@@ -1,4 +1,4 @@
-package com.study.aroundhub.dto;
+package com.study.aroundhub.data.dto;
 
 import lombok.Data;
 

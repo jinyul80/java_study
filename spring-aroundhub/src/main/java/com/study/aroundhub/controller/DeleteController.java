@@ -1,11 +1,6 @@
 package com.study.aroundhub.controller;
 
-import com.study.aroundhub.dto.MemberDTO;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/delete-api")
