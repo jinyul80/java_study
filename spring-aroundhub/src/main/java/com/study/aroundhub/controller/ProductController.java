@@ -5,7 +5,11 @@ import com.study.aroundhub.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/product-api")
@@ -31,8 +35,15 @@ public class ProductController {
     }
 
     @PostMapping(value = "/product")
-    public ProductDto createProduct(@RequestBody ProductDto productDto) {
-        return productService.saveProduct(productDto.getProductId(), productDto.getProductName(), productDto.getProductPrice(), productDto.getProductStack());
+    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody ProductDto productDto) {
+
+        var response = productService.saveProduct(productDto.getProductId(), productDto.getProductName(), productDto.getProductPrice(), productDto.getProductStack());
+
+        LOGGER.info("Response :: productId = {}, productName = {}, productPrice = {}, productStock = {}",
+                response.getProductId(), response.getProductName(), response.getProductPrice()
+                , response.getProductStack());
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping(value = "/product/{productId}")
