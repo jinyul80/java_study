@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 public class ProgrammersHash {
 
@@ -136,6 +137,70 @@ public class ProgrammersHash {
         }
 
         return result;
+    }
+
+    // 해시 - 카카오 순위 검색
+    public int[] solution5(String[] info, String[] query) {
+        int[] answer = new int[query.length];
+
+        HashMap<String, List<Integer>> hm = new HashMap<>();
+
+        for (String user : info) {
+            String[] data = user.split(" ");
+
+            for (String lang : new String[]{data[0], "-"}) {
+                for (String job : new String[]{data[1], "-"}) {
+                    for (String exps : new String[]{data[2], "-"}) {
+                        for (String food : new String[]{data[3], "-"}) {
+                            String[] keyData = {lang, job, exps, food};
+                            String key = String.join(" ", keyData);
+                            List<Integer> arr = hm.getOrDefault(key, new ArrayList<Integer>());
+
+                            arr.add(Integer.parseInt(data[4]));
+                            hm.put(key, arr);
+                        }
+                    }
+                }
+            }
+        }
+
+        for (List<Integer> arr : hm.values()) {
+            arr.sort(null);
+        }
+
+        int i = 0;
+        for (String q : query) {
+            String[] data = q.split(" and ");
+            int target = Integer.parseInt(data[3].split(" ")[1]);
+            data[3] = data[3].split(" ")[0];
+            String key = String.join(" ", data);
+
+            if (hm.containsKey(key)) {
+                List<Integer> list = hm.get(key);
+
+                int left = 0;
+                int right = list.size();
+                while(left < right) {
+                    int mid = (left + right) / 2;
+                    if (list.get(mid) >= target) {
+                        right = mid;
+                    } else {
+                        left = mid + 1;
+                    }
+                }
+                answer[i] = list.size() - left;
+
+                // 효율성 시간 초과로 실패
+                /*int count = (int) list.parallelStream()
+                                      .filter(x -> x >= target)
+                                      .count();
+                answer[i] = count;*/
+            }
+
+            i++;
+        }
+
+        return answer;
     }
 
 }
