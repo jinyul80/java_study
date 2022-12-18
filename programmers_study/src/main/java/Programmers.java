@@ -177,9 +177,10 @@ public class Programmers {
 
         System.out.println(hs.toString());
 
-        for(int num: hs) {
-            if (sol8_isPrime(num))
+        for (int num : hs) {
+            if (sol8_isPrime(num)) {
                 count++;
+            }
         }
 
         return count;
@@ -205,20 +206,82 @@ public class Programmers {
 
     // 에라토스테네스의 체
     boolean sol8_isPrime(int num) {
-        if(num == 0 || num == 1) {
+        if (num == 0 || num == 1) {
             return false;
         }
 
-        int limit = (int)Math.sqrt(num);
+        int limit = (int) Math.sqrt(num);
 
-        for (int idx = 2; idx < limit ; idx++) {
-            if (num % idx == 0)
+        for (int idx = 2; idx < limit; idx++) {
+            if (num % idx == 0) {
                 return false;
+            }
         }
 
         return true;
     }
 
+    // 카카오 - 키패드 누르기
+    public String solution9(int[] numbers, String hand) {
+        String answer = "";
 
+        Position left = new Position(3, 0);
+        Position right = new Position(3, 2);
+        Position numPos;
+
+        for (int num : numbers) {
+            numPos = new Position((num - 1) / 3, (num - 1) % 3);
+            if (num == 0) {
+                numPos = new Position(3, 1);
+            }
+
+            String finger = numPos.getFinger(left, right, hand);
+
+            answer += finger;
+            if (finger.equals("L")) {
+                left = numPos;
+            } else {
+                right = numPos;
+            }
+        }
+
+        return answer;
+    }
+
+    class Position {
+
+        int row;
+        int col;
+
+        public Position(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+
+        public String getFinger(Position left, Position right, String hand) {
+            String finger = hand.equals("right") ? "R" : "L";
+
+            if (this.col == 0) {
+                finger = "L";
+            } else if (this.col == 2) {
+                finger = "R";
+            } else {
+                int leftDist = left.getDistance(this);
+                int rightDist = right.getDistance(this);
+
+                if (leftDist < rightDist) {
+                    finger = "L";
+                } else if (leftDist > rightDist) {
+                    finger = "R";
+                }
+            }
+
+            return finger;
+        }
+
+        public int getDistance(Position p) {
+            return Math.abs(this.row - p.row) + Math.abs(this.col - p.col);
+        }
+    }
 
 }

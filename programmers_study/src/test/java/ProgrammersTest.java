@@ -1,4 +1,3 @@
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -76,5 +75,14 @@ class ProgrammersTest {
         String numbers = "1739";
         int answer = p.solution8(numbers);
         assertEquals(answer, 32);
+    }
+
+    @Test
+    void sol_키패드누르기() {
+        int[] numbers = {1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5};
+        String hand = "right";
+        String answer = p.solution9(numbers, hand);
+        String actual = "LRLLLRLLRRL";
+        assertEquals(answer, actual);
     }
 }

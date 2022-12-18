@@ -58,4 +58,20 @@ class ProgrammersHashTest {
         int[] answer = p.solution5(infos, querys);
         assertArrayEquals(answer, new int[]{1, 1, 1, 1, 2, 4});
     }
+
+    @Test
+    void sol_신고결과받기() {
+        String[] id_list = {"muzi", "frodo", "apeach", "neo"};
+        String[] reportList = {"muzi frodo", "apeach frodo", "frodo neo", "muzi neo",
+            "apeach muzi"};
+        int k = 2;
+        int[] actual = {2,1,1,0};
+
+        int[] answer = p.solution6(id_list, reportList, k);
+
+        assertArrayEquals(answer, actual);
+
+    }
+
+
 }

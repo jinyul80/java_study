@@ -1,8 +1,10 @@
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -180,7 +182,7 @@ public class ProgrammersHash {
 
                 int left = 0;
                 int right = list.size();
-                while(left < right) {
+                while (left < right) {
                     int mid = (left + right) / 2;
                     if (list.get(mid) >= target) {
                         right = mid;
@@ -198,6 +200,42 @@ public class ProgrammersHash {
             }
 
             i++;
+        }
+
+        return answer;
+    }
+
+    // 카카오 - 신고결과받기
+    public int[] solution6(String[] id_list, String[] report, int k) {
+        int[] answer = new int[id_list.length];
+
+        HashSet<String> reportSet = new HashSet<>();
+        for (String rep : report) {
+            reportSet.add(rep);
+        }
+
+        HashMap<String, List<String>> notifyMap = new HashMap<>();
+        for (String rep : reportSet) {
+            String[] tempArray = rep.split(" ");
+            String user = tempArray[0];
+            String badUser = tempArray[1];
+
+            List<String> arr = notifyMap.getOrDefault(badUser, new ArrayList<String>());
+            arr.add(user);
+            notifyMap.put(badUser, arr);
+        }
+
+        HashMap<String, Integer> reportHash = new HashMap<>();
+        for (List<String> notifyList : notifyMap.values()) {
+            if (notifyList.size() >= k) {
+                for (String user : notifyList) {
+                    reportHash.put(user, reportHash.getOrDefault(user, 0) + 1);
+                }
+            }
+        }
+
+        for (int i = 0; i < id_list.length; i++) {
+            answer[i] = reportHash.getOrDefault(id_list[i], 0);
         }
 
         return answer;
