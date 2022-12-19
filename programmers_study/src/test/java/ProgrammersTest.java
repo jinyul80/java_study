@@ -85,4 +85,16 @@ class ProgrammersTest {
         String actual = "LRLLLRLLRRL";
         assertEquals(answer, actual);
     }
+
+    @Test
+    void sol_타겟넘버() {
+        int[] numbers = {1, 1, 1, 1, 1};
+        int target = 3;
+
+        int answer = p.solution10(numbers, target);
+        int actual = 5;
+
+        assertEquals(answer, actual);
+    }
+
 }

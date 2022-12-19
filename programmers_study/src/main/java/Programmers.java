@@ -284,4 +284,26 @@ public class Programmers {
         }
     }
 
+    // 타겟 넘버
+    public int solution10(int[] numbers, int target) {
+        int answer = dfs(numbers, target, 0, 0);
+
+        return answer;
+    }
+
+    int dfs(int[] numbers, int target, int idx, int sum) {
+        int correctCount = 0;
+
+        if (idx == numbers.length) {
+            if(sum == target) {
+                correctCount++;
+            }
+        } else {
+            correctCount += dfs(numbers, target, idx + 1, sum + numbers[idx]);
+            correctCount += dfs(numbers, target, idx + 1, sum - numbers[idx]);
+        }
+
+        return correctCount;
+    }
+
 }
