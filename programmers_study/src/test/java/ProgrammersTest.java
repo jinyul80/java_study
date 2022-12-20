@@ -97,4 +97,14 @@ class ProgrammersTest {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_약수의개수와덧셈() {
+        int left = 13;
+        int right = 17;
+
+        int answer = p.solution11(left, right);
+        int actual = 43;
+        assertEquals(answer, actual);
+    }
+
 }

@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -295,7 +296,7 @@ public class Programmers {
         int correctCount = 0;
 
         if (idx == numbers.length) {
-            if(sum == target) {
+            if (sum == target) {
                 correctCount++;
             }
         } else {
@@ -304,6 +305,36 @@ public class Programmers {
         }
 
         return correctCount;
+    }
+
+    // 약수의 개수와 덧셈
+    public int solution11(int left, int right) {
+        int answer = 0;
+
+        for (int num = left; num <= right; num++) {
+            int number = num;
+            Map<Integer, Integer> map = new HashMap<>();
+
+            for (int i = 2; i <= number; i++) {
+                while (number % i == 0) {
+                    map.put(i, map.getOrDefault(i, 0) + 1);
+                    number /= i;
+                }
+            }
+
+            int divisorCount = 1;
+            for (int cnt : map.values()) {
+                divisorCount *= cnt + 1;
+            }
+
+            if (divisorCount % 2 == 0) {
+                answer += num;
+            } else {
+                answer -= num;
+            }
+        }
+
+        return answer;
     }
 
 }
