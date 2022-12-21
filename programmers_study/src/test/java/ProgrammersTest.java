@@ -107,4 +107,26 @@ class ProgrammersTest {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_기사단원의무기1() {
+        int number = 5;
+        int limit = 3;
+        int power = 2;
+
+        int answer = p.solution12(number, limit, power);
+        int actual = 10;
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_기사단원의무기2() {
+        int number = 10;
+        int limit = 3;
+        int power = 2;
+
+        int answer = p.solution12(number, limit, power);
+        int actual = 21;
+        assertEquals(answer, actual);
+    }
+
 }

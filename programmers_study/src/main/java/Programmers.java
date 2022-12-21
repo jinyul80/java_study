@@ -337,4 +337,29 @@ public class Programmers {
         return answer;
     }
 
+    // 기사단위의 무기
+    public int solution12(int number, int limit, int power) {
+        int answer = 0;
+
+        for (int num = 1; num <= number ; num++) {
+            // 약수의 개수
+            int divisorCount = 0;
+            for(int i = 1; i <= Math.sqrt(num); i++) {
+                if (i == Math.sqrt(num)) {
+                    divisorCount++;
+                } else if (num % i == 0) {
+                    divisorCount += 2;
+                }
+            }
+
+            if (divisorCount <= limit) {
+                answer += divisorCount;
+            } else {
+                answer += power;
+            }
+        }
+
+        return answer;
+    }
+
 }
