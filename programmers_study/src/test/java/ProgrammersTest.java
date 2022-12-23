@@ -129,4 +129,13 @@ class ProgrammersTest {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_문자열나누기() {
+        String s = "aaabbaccccabba";
+
+        int answer = p.solution12(s);
+        int actual = 3;
+        assertEquals(answer, actual);
+    }
+
 }

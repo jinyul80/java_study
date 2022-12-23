@@ -341,10 +341,10 @@ public class Programmers {
     public int solution12(int number, int limit, int power) {
         int answer = 0;
 
-        for (int num = 1; num <= number ; num++) {
+        for (int num = 1; num <= number; num++) {
             // 약수의 개수
             int divisorCount = 0;
-            for(int i = 1; i <= Math.sqrt(num); i++) {
+            for (int i = 1; i <= Math.sqrt(num); i++) {
                 if (i == Math.sqrt(num)) {
                     divisorCount++;
                 } else if (num % i == 0) {
@@ -361,5 +361,48 @@ public class Programmers {
 
         return answer;
     }
+
+    // 문자열나누기
+    public int solution12(String s) {
+        int answer = 0;
+
+        List<String> arr = new ArrayList<>();
+
+        while (s.length() > 0) {
+
+            if (s.length() == 1) {
+                arr.add(s);
+                break;
+            }
+
+            int targetCount = 1;
+            int otherCount = 0;
+
+            char ch = s.charAt(0);
+
+            for (int idx = 1; idx < s.length(); idx++) {
+                char tempChar = s.charAt(idx);
+                if (ch == tempChar) {
+                    targetCount++;
+                } else {
+                    otherCount++;
+                }
+
+                if (targetCount == otherCount) {
+                    arr.add(s.substring(0, targetCount + otherCount));
+                    s = s.substring(targetCount + otherCount);
+                    break;
+                } else if (idx == s.length() - 1) {
+                    arr.add(s);
+                    s = "";
+                }
+            }
+        }
+
+        answer = arr.size();
+
+        return answer;
+    }
+
 
 }
