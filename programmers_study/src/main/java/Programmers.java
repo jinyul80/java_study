@@ -408,12 +408,27 @@ public class Programmers {
     public int solution13(String s) {
         int answer = 0;
 
-        String[] strArr = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-        for(int i = 0; i < strArr.length; i++) {
+        String[] strArr = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+            "nine"};
+        for (int i = 0; i < strArr.length; i++) {
             s = s.replaceAll(strArr[i], Integer.toString(i));
         }
 
         answer = Integer.parseInt(s);
+
+        return answer;
+    }
+
+    // 부족한 금액 계산하기
+    public long solution14(int price, int money, int count) {
+        long answer = -1;
+
+        long totalPrice = 0;
+        for (int i = 1; i <= count; i++) {
+            totalPrice += price * i;
+        }
+
+        answer = Math.max(totalPrice - money, 0);
 
         return answer;
     }
