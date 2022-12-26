@@ -404,5 +404,18 @@ public class Programmers {
         return answer;
     }
 
+    // 숫자 문자열과 영단어
+    public int solution13(String s) {
+        int answer = 0;
+
+        String[] strArr = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
+        for(int i = 0; i < strArr.length; i++) {
+            s = s.replaceAll(strArr[i], Integer.toString(i));
+        }
+
+        answer = Integer.parseInt(s);
+
+        return answer;
+    }
 
 }

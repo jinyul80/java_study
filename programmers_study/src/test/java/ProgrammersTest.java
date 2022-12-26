@@ -138,4 +138,13 @@ class ProgrammersTest {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_숫자문자열과영단어() {
+        String s = "2three45sixseven";
+
+        int answer = p.solution13(s);
+        int actual = 234567;
+        assertEquals(answer, actual);
+    }
+
 }
