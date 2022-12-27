@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -429,6 +431,31 @@ public class Programmers {
         }
 
         answer = Math.max(totalPrice - money, 0);
+
+        return answer;
+    }
+
+    // 최소직사각형
+    public int solution15(int[][] sizes) {
+        int answer = 0;
+
+        Set<Integer> widths = new HashSet<>();
+        Set<Integer> heights = new HashSet<>();
+
+        for (int i = 0; i < sizes.length ; i++) {
+            int w = sizes[i][0];
+            int h = sizes[i][1];
+
+            if (w > h) {
+                widths.add(w);
+                heights.add(h);
+            } else {
+                widths.add(h);
+                heights.add(w);
+            }
+        }
+
+        answer = Collections.max(widths) * Collections.max(heights);
 
         return answer;
     }

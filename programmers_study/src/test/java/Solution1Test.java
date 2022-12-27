@@ -58,4 +58,26 @@ class Solution1Test {
         System.out.printf("Number: %d, count1: %d, count2: %d\n", number, count1, count2);
 
     }
+
+    @Test
+    void test() {
+        int[] numbers = {1,2,3,4,6,7,8,0};
+        int answer = 0;
+
+        int[] nums = new int[10];
+
+
+        for (int i = 0; i < numbers.length ; i++) {
+            nums[numbers[i]] = 1;
+        }
+
+        for (int i = 0; i < nums.length ; i++) {
+            if (nums[i] == 0) {
+                answer += i;
+            }
+        }
+        System.out.println(answer);
+
+    }
+
 }
