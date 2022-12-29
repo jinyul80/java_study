@@ -182,5 +182,30 @@ public class Solution1 {
         return answer;
     }
 
+    // 로또의 최고 순위와 최저 순위
+    public int[] solution6(int[] lottos, int[] win_nums) {
+        int[] answer = new int[2];
+
+        int maxCount = 0;
+        int minCount = 0;
+        for (int i = 0; i < lottos.length; i++) {
+            int num = lottos[i];
+            if (num == 0) {
+                maxCount++;
+            } else if (Arrays.stream(win_nums).anyMatch(v -> v == num)) {
+                maxCount++;
+                minCount++;
+            }
+        }
+
+        maxCount = maxCount == 0 ? 1 : maxCount;
+        minCount = minCount == 0 ? 1 : minCount;
+
+        answer[0] = 7 - maxCount;
+        answer[1] = 7 - minCount;
+
+        return answer;
+    }
+
 
 }
