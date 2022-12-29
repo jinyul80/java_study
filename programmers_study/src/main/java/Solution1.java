@@ -1,6 +1,10 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -74,6 +78,109 @@ public class Solution1 {
         return divisorCount;
     }
 
+    // 성격유형 검사하기
+    public String solution2(String[] survey, int[] choices) {
+        String answer = "";
+
+        String[] types = {"RT", "CF", "JM", "AN"};
+        Map<Character, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < survey.length ; i++) {
+            String surveyType = survey[i];
+            if (choices[i] < 4) {
+                char key = surveyType.charAt(0);
+                hashMap.put(key,  hashMap.getOrDefault(key, 0) + (4-choices[i]));
+
+            } else if (choices[i] > 4) {
+                char key = surveyType.charAt(1);
+                hashMap.put(key,  hashMap.getOrDefault(key, 0) + (choices[i]-4));
+            }
+        }
+
+        for (String type: types       ) {
+            int score1 = hashMap.getOrDefault(type.charAt(0), 0);
+            int score2 = hashMap.getOrDefault(type.charAt(1), 0);
+
+            if (score1 > score2) {
+                answer += type.charAt(0);
+            } else if (score1 < score2) {
+                answer += type.charAt(1);
+            } else {
+                char[] arr = type.toCharArray();
+                Arrays.sort(arr);
+                answer += arr[0];
+            }
+        }
+
+        return answer;
+    }
+
+    // 가장 가까운 같은 글자
+    public int[] solution3(String s) {
+        int[] answer = new int[s.length()];
+
+        Map<Character, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < s.length() ; i++) {
+            char key = s.charAt(i);
+
+            if (hashMap.containsKey(key)) {
+                answer[i] = i - hashMap.get(key);
+            } else {
+                answer[i] = -1;
+            }
+
+            hashMap.put(key, i);
+        }
+
+        return answer;
+    }
+
+    // 크기가 작은 부분문자열
+    public int solution4(String t, String p) {
+        int answer = 0;
+
+        long limitNum = Long.parseLong(p);
+        int len = p.length();
+        for (int idx = 0; idx <= t.length() - len ; idx++) {
+            String str = t.substring(idx, idx + len);
+            long checkNum = Long.parseLong(str);
+            if (checkNum <= limitNum) {
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+
+    // 명예의전당(1)
+    public int[] solution5(int k, int[] score) {
+        int[] answer = new int[score.length];
+
+        List<Integer> scoreList = new ArrayList<>();
+        int minScore = 0;
+
+        for (int i = 0; i < score.length ; i++) {
+            if (i <= k) {
+                scoreList.add(score[i]);
+
+            } else if (score[i] > minScore){
+                scoreList.add(score[i]);
+
+            }
+
+            scoreList.sort(Comparator.reverseOrder());
+            if (scoreList.size() > k) {
+                scoreList.remove(k);
+            }
+
+            minScore = scoreList.get(scoreList.size()-1);
+            answer[i] = minScore;
+
+        }
+
+        return answer;
+    }
 
 
 }

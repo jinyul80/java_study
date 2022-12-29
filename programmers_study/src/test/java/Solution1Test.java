@@ -80,4 +80,49 @@ class Solution1Test {
 
     }
 
+    @Test
+    void sol_성격유형검사하기() {
+        String[] survey = {"AN", "CF", "MJ", "RT", "NA"};
+        int[] choices = {5, 3, 2, 7, 5};
+
+        String answer = s1.solution2(survey, choices);
+        String actual = "TCMA";
+
+        assertEquals(answer, actual);
+
+    }
+
+    @Test
+    void sol_가장가까운같은글자() {
+        String str = "banana";
+
+        int[] answer = s1.solution3(str);
+        int[] actual = {-1, -1, -1, 2, 2, 2};
+
+        assertArrayEquals(answer, actual);
+    }
+
+    @Test
+    void sol_크기가작은부분문자열() {
+        String t = "500220839878";
+        String p = "7";
+
+        int answer = s1.solution4(t, p);
+        int actual = 8;
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_명예의전당() {
+        int k = 3;
+        int[] scores = {10, 100, 20, 150, 1, 100, 200};
+
+        int[] answer = s1.solution5(k, scores);
+        int[] actual = {10, 10, 10, 20, 20, 100, 100};
+
+        assertArrayEquals(answer, actual);
+
+    }
+
 }

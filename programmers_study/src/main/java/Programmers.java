@@ -460,4 +460,18 @@ public class Programmers {
         return answer;
     }
 
+    // 나머지가 1인 수 찾기
+    public int solution16(int n) {
+        int answer = 0;
+
+        for (int i = 2; i < n ; i++) {
+            if (n % i == 1) {
+                answer = i;
+                break;
+            }
+        }
+
+        return answer;
+    }
+
 }
