@@ -148,5 +148,36 @@ class Solution1Test {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_3진법뒤집기() {
+        int n = 45;
+
+        int answer = s1.solution10(n);
+        int actual = 7;
+
+        assertEquals(answer, actual);
+
+    }
+
+    @Test
+    void sol_두개뽑아서더하기() {
+        int[] numbers = {2,1,3,4,1};
+
+        int[] answer = s1.solution11(numbers);
+        int[] actual = {2,3,4,5,6,7};
+
+        assertArrayEquals(answer, actual);
+    }
+
+    @Test
+    void sol_모의고사() {
+        int[] answers = {1,3,2,4,2};
+
+        int[] ans = s1.solution12(answers);
+        int[] actual = {1, 2, 3};
+
+        assertArrayEquals(ans, actual);
+    }
+
 
 }

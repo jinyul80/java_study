@@ -3,10 +3,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 public class Solution1 {
@@ -268,5 +271,61 @@ public class Solution1 {
         return answer;
     }
 
+    // 3진법 뒤집기
+    public int solution10(int n) {
+        int answer = 0;
+
+        String str = Integer.toString(n, 3);
+        String reverse = new StringBuilder(str).reverse().toString();
+        answer = Integer.parseInt(reverse, 3);
+
+        return answer;
+    }
+
+    // 두개 뽑아서 더하기
+    public int[] solution11(int[] numbers) {
+
+        Set<Integer> set = new HashSet<>();
+
+        for (int i = 0; i < numbers.length - 1; i++) {
+            for (int j = i+1; j < numbers.length; j++) {
+                set.add(numbers[i] + numbers[j]);
+            }
+        }
+
+        return set.stream().sorted().mapToInt(Integer::intValue).toArray();
+    }
+
+    // 모의고사
+    public int[] solution12(int[] answers) {
+
+        Map<Integer, int[]> resultMap = new HashMap<>();
+        resultMap.put(1, new int[]{1, 2, 3, 4, 5});
+        resultMap.put(2, new int[]{2, 1, 2, 3, 2, 4, 2, 5});
+        resultMap.put(3, new int[]{3, 3, 1, 1, 2, 2, 4, 4, 5, 5});
+
+        Map<Integer, Integer> scoreMap = new HashMap<>();
+
+        for (int i = 0; i < answers.length; i++) {
+            for(Entry<Integer, int[]> entry: resultMap.entrySet()) {
+                int key = entry.getKey();
+                int[] answerSheet = entry.getValue();
+
+                if(answers[i] == answerSheet[i % answerSheet.length]) {
+                    scoreMap.put(key, scoreMap.getOrDefault(key, 0) + 1);
+                }
+            }
+        }
+
+        int maxScore = Collections.max(scoreMap.values());
+        List<Integer> bestList = new ArrayList<>();
+        for (int key : scoreMap.keySet()) {
+            if (maxScore == scoreMap.get(key)) {
+                bestList.add(key);
+            }
+        }
+
+        return bestList.stream().mapToInt(Integer::intValue).toArray();
+    }
 
 }
