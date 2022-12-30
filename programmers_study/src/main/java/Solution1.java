@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Solution1 {
     public void printHelloWorld() {
@@ -203,6 +204,66 @@ public class Solution1 {
 
         answer[0] = 7 - maxCount;
         answer[1] = 7 - minCount;
+
+        return answer;
+    }
+
+    // 음양 더하기
+    public int solution7(int[] absolutes, boolean[] signs) {
+        int answer = 0;
+
+        for (int i = 0; i < absolutes.length ; i++) {
+            if (signs[i]) {
+                answer += absolutes[i];
+            } else {
+                answer -= absolutes[i];
+            }
+        }
+
+        return answer;
+    }
+
+    // 내적구하기
+    public int solution8(int[] a, int[] b) {
+        int answer = 0;
+
+        for (int i = 0; i < a.length ; i++) {
+            answer += (a[i] * b[i]);
+        }
+
+        return answer;
+    }
+
+    // 크레인 인형뽑기
+    public int solution9(int[][] board, int[] moves) {
+        int answer = 0;
+
+        Stack<Integer> stack = new Stack<>();
+        for (int idx = 0; idx < moves.length; idx++) {
+            int col = moves[idx] - 1;
+
+            for (int row = 0; row < board.length ; row++) {
+                if (board[row][col] == 0) {
+                    continue;
+                }
+
+                int toyNum = board[row][col];
+                board[row][col] = 0;
+
+                if (stack.isEmpty()) {
+                    stack.push(toyNum);
+                } else {
+                    if (toyNum == stack.peek()) {
+                        answer += 2;
+                        stack.pop();
+                    } else {
+                        stack.push(toyNum);
+                    }
+                }
+
+                break;
+            }
+        }
 
         return answer;
     }
