@@ -8,13 +8,14 @@ import org.junit.jupiter.api.Test;
 class Solution1Test {
 
     Solution1 s1 = new Solution1();
+
     @Test
     void printHelloWorld() {
         s1.printHelloWorld();
     }
 
     @Test
-    void sol_프린터1(){
+    void sol_프린터1() {
         int[] priorities = {2, 1, 3, 2};
         int locatino = 2;
 
@@ -23,7 +24,7 @@ class Solution1Test {
     }
 
     @Test
-    void sol_프린터2(){
+    void sol_프린터2() {
         int[] priorities = {1, 1, 9, 1, 1, 1};
         int locatino = 0;
 
@@ -32,10 +33,10 @@ class Solution1Test {
     }
 
     @Test
-    void sol_약수개수성능비교(){
+    void sol_약수개수성능비교() {
 
         long number = 1567349871579687498L;
-        
+
         Map<Integer, Integer> sol1map = new HashMap<>();
         Map<Integer, Integer> sol2map = new HashMap<>();
 
@@ -45,7 +46,7 @@ class Solution1Test {
         long afterTime = System.currentTimeMillis();
         long secDiffTime = (afterTime - beforeTime);
         NumberFormat formater = NumberFormat.getInstance();
-        
+
         System.out.printf("Loop 방식: %s (ms)\n", formater.format(secDiffTime));
 
         // 소인수분해 타입
@@ -61,17 +62,16 @@ class Solution1Test {
 
     @Test
     void test() {
-        int[] numbers = {1,2,3,4,6,7,8,0};
+        int[] numbers = {1, 2, 3, 4, 6, 7, 8, 0};
         int answer = 0;
 
         int[] nums = new int[10];
 
-
-        for (int i = 0; i < numbers.length ; i++) {
+        for (int i = 0; i < numbers.length; i++) {
             nums[numbers[i]] = 1;
         }
 
-        for (int i = 0; i < nums.length ; i++) {
+        for (int i = 0; i < nums.length; i++) {
             if (nums[i] == 0) {
                 answer += i;
             }
@@ -139,8 +139,9 @@ class Solution1Test {
 
     @Test
     void sol_크레인인형뽑기() {
-        int[][] boards = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
-        int[] moves = {1,5,3,5,1,2,1,4};
+        int[][] boards = {{0, 0, 0, 0, 0}, {0, 0, 1, 0, 3}, {0, 2, 5, 0, 1}, {4, 2, 4, 4, 2},
+            {3, 5, 1, 3, 1}};
+        int[] moves = {1, 5, 3, 5, 1, 2, 1, 4};
 
         int answer = s1.solution9(boards, moves);
         int actual = 4;
@@ -161,22 +162,33 @@ class Solution1Test {
 
     @Test
     void sol_두개뽑아서더하기() {
-        int[] numbers = {2,1,3,4,1};
+        int[] numbers = {2, 1, 3, 4, 1};
 
         int[] answer = s1.solution11(numbers);
-        int[] actual = {2,3,4,5,6,7};
+        int[] actual = {2, 3, 4, 5, 6, 7};
 
         assertArrayEquals(answer, actual);
     }
 
     @Test
     void sol_모의고사() {
-        int[] answers = {1,3,2,4,2};
+        int[] answers = {1, 3, 2, 4, 2};
 
         int[] ans = s1.solution12(answers);
         int[] actual = {1, 2, 3};
 
         assertArrayEquals(ans, actual);
+    }
+
+    @Test
+    void sol_실패율() {
+        int N = 5;
+        int[] stages = {2, 1, 2, 6, 2, 4, 3, 3};
+
+        int[] answer = s1.solution13(N, stages);
+        int[] actual = {3,4,2,1,5};
+
+        assertArrayEquals(answer, actual);
     }
 
 

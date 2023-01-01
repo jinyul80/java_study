@@ -11,8 +11,10 @@ import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class Solution1 {
+
     public void printHelloWorld() {
         System.out.println("Hello World!!!");
     }
@@ -23,14 +25,15 @@ public class Solution1 {
         // [idx, priority]
         Queue<int[]> queue = new LinkedList<>();
 
-        for (int idx = 0; idx < priorities.length ; idx++) {
+        for (int idx = 0; idx < priorities.length; idx++) {
             int[] task = {idx, priorities[idx]};
             queue.add(task);
         }
 
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             int[] task = queue.remove();
-            if (queue.stream().anyMatch(x -> x[1] > task[1])) {
+            if (queue.stream()
+                     .anyMatch(x -> x[1] > task[1])) {
                 queue.add(task);
             } else {
                 answer++;
@@ -46,7 +49,7 @@ public class Solution1 {
     // 약수의 개수 구하기
     public int getDivisorCount1(long number) {
         int divisorCount = 0;
-        for(int i = 1; i <= Math.sqrt(number); i++) {
+        for (int i = 1; i <= Math.sqrt(number); i++) {
             if (i == Math.sqrt(number)) {
                 divisorCount++;
             } else if (number % i == 0) {
@@ -89,19 +92,19 @@ public class Solution1 {
         String[] types = {"RT", "CF", "JM", "AN"};
         Map<Character, Integer> hashMap = new HashMap<>();
 
-        for (int i = 0; i < survey.length ; i++) {
+        for (int i = 0; i < survey.length; i++) {
             String surveyType = survey[i];
             if (choices[i] < 4) {
                 char key = surveyType.charAt(0);
-                hashMap.put(key,  hashMap.getOrDefault(key, 0) + (4-choices[i]));
+                hashMap.put(key, hashMap.getOrDefault(key, 0) + (4 - choices[i]));
 
             } else if (choices[i] > 4) {
                 char key = surveyType.charAt(1);
-                hashMap.put(key,  hashMap.getOrDefault(key, 0) + (choices[i]-4));
+                hashMap.put(key, hashMap.getOrDefault(key, 0) + (choices[i] - 4));
             }
         }
 
-        for (String type: types       ) {
+        for (String type : types) {
             int score1 = hashMap.getOrDefault(type.charAt(0), 0);
             int score2 = hashMap.getOrDefault(type.charAt(1), 0);
 
@@ -125,7 +128,7 @@ public class Solution1 {
 
         Map<Character, Integer> hashMap = new HashMap<>();
 
-        for (int i = 0; i < s.length() ; i++) {
+        for (int i = 0; i < s.length(); i++) {
             char key = s.charAt(i);
 
             if (hashMap.containsKey(key)) {
@@ -146,7 +149,7 @@ public class Solution1 {
 
         long limitNum = Long.parseLong(p);
         int len = p.length();
-        for (int idx = 0; idx <= t.length() - len ; idx++) {
+        for (int idx = 0; idx <= t.length() - len; idx++) {
             String str = t.substring(idx, idx + len);
             long checkNum = Long.parseLong(str);
             if (checkNum <= limitNum) {
@@ -164,11 +167,11 @@ public class Solution1 {
         List<Integer> scoreList = new ArrayList<>();
         int minScore = 0;
 
-        for (int i = 0; i < score.length ; i++) {
+        for (int i = 0; i < score.length; i++) {
             if (i <= k) {
                 scoreList.add(score[i]);
 
-            } else if (score[i] > minScore){
+            } else if (score[i] > minScore) {
                 scoreList.add(score[i]);
 
             }
@@ -178,7 +181,7 @@ public class Solution1 {
                 scoreList.remove(k);
             }
 
-            minScore = scoreList.get(scoreList.size()-1);
+            minScore = scoreList.get(scoreList.size() - 1);
             answer[i] = minScore;
 
         }
@@ -196,7 +199,8 @@ public class Solution1 {
             int num = lottos[i];
             if (num == 0) {
                 maxCount++;
-            } else if (Arrays.stream(win_nums).anyMatch(v -> v == num)) {
+            } else if (Arrays.stream(win_nums)
+                             .anyMatch(v -> v == num)) {
                 maxCount++;
                 minCount++;
             }
@@ -215,7 +219,7 @@ public class Solution1 {
     public int solution7(int[] absolutes, boolean[] signs) {
         int answer = 0;
 
-        for (int i = 0; i < absolutes.length ; i++) {
+        for (int i = 0; i < absolutes.length; i++) {
             if (signs[i]) {
                 answer += absolutes[i];
             } else {
@@ -230,7 +234,7 @@ public class Solution1 {
     public int solution8(int[] a, int[] b) {
         int answer = 0;
 
-        for (int i = 0; i < a.length ; i++) {
+        for (int i = 0; i < a.length; i++) {
             answer += (a[i] * b[i]);
         }
 
@@ -245,7 +249,7 @@ public class Solution1 {
         for (int idx = 0; idx < moves.length; idx++) {
             int col = moves[idx] - 1;
 
-            for (int row = 0; row < board.length ; row++) {
+            for (int row = 0; row < board.length; row++) {
                 if (board[row][col] == 0) {
                     continue;
                 }
@@ -276,7 +280,8 @@ public class Solution1 {
         int answer = 0;
 
         String str = Integer.toString(n, 3);
-        String reverse = new StringBuilder(str).reverse().toString();
+        String reverse = new StringBuilder(str).reverse()
+                                               .toString();
         answer = Integer.parseInt(reverse, 3);
 
         return answer;
@@ -288,12 +293,15 @@ public class Solution1 {
         Set<Integer> set = new HashSet<>();
 
         for (int i = 0; i < numbers.length - 1; i++) {
-            for (int j = i+1; j < numbers.length; j++) {
+            for (int j = i + 1; j < numbers.length; j++) {
                 set.add(numbers[i] + numbers[j]);
             }
         }
 
-        return set.stream().sorted().mapToInt(Integer::intValue).toArray();
+        return set.stream()
+                  .sorted()
+                  .mapToInt(Integer::intValue)
+                  .toArray();
     }
 
     // 모의고사
@@ -307,11 +315,11 @@ public class Solution1 {
         Map<Integer, Integer> scoreMap = new HashMap<>();
 
         for (int i = 0; i < answers.length; i++) {
-            for(Entry<Integer, int[]> entry: resultMap.entrySet()) {
+            for (Entry<Integer, int[]> entry : resultMap.entrySet()) {
                 int key = entry.getKey();
                 int[] answerSheet = entry.getValue();
 
-                if(answers[i] == answerSheet[i % answerSheet.length]) {
+                if (answers[i] == answerSheet[i % answerSheet.length]) {
                     scoreMap.put(key, scoreMap.getOrDefault(key, 0) + 1);
                 }
             }
@@ -325,7 +333,55 @@ public class Solution1 {
             }
         }
 
-        return bestList.stream().mapToInt(Integer::intValue).toArray();
+        return bestList.stream()
+                       .mapToInt(Integer::intValue)
+                       .toArray();
+    }
+
+    // 실패율
+    public int[] solution13(int N, int[] stages) {
+        int[] answer = new int[N];
+
+        int[] stageChallenger = new int[N + 1];
+        int[] stageCurrent = new int[N + 1];
+
+        for (int stage : stages) {
+            for (int j = 0; j < stage; j++) {
+                stageChallenger[j]++;
+            }
+
+            stageCurrent[stage - 1]++;
+        }
+
+        Map<Integer, Float> hashMap = new HashMap<>();
+        for (int i = 0; i < N; i++) {
+            if (stageCurrent[i] == 0) {
+                hashMap.put(i, 0.0F);
+            } else {
+                hashMap.put(i, (stageCurrent[i] / (float) stageChallenger[i]));
+            }
+        }
+
+        List<Float> failRateList = hashMap.values()
+                                          .stream()
+                                          .distinct()
+                                          .sorted(Comparator.reverseOrder())
+                                          .collect(Collectors.toList());
+
+        List<Integer> tempList = new ArrayList<>();
+        for (float failRate : failRateList) {
+            hashMap.entrySet()
+                   .stream()
+                   .filter(entry -> entry.getValue() == failRate)
+                   .map(entry -> entry.getKey() + 1)
+                   .forEach(tempList::add);
+        }
+
+        answer = tempList.stream()
+                         .mapToInt(Integer::intValue)
+                         .toArray();
+
+        return answer;
     }
 
 }
