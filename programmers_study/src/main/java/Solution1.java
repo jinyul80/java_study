@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -382,6 +383,42 @@ public class Solution1 {
                          .toArray();
 
         return answer;
+    }
+
+    // 개인정보 수집 유효기간
+    public int[] solution14(String today, String[] terms, String[] privacies) {
+        List<Integer> answerList = new ArrayList<>();
+
+        LocalDate todayDate = LocalDate.parse(today.replaceAll("[.]", "-"));
+
+        Map<String, Integer> termsMap = new HashMap<>();
+        for (String term : terms) {
+            String key = term.split(" ")[0];
+            int expire = Integer.parseInt(term.split(" ")[1]);
+            termsMap.put(key, expire);
+        }
+
+        for (int i = 0; i < privacies.length; i++) {
+            String str = privacies[i];
+            String key = str.split(" ")[1];
+
+            LocalDate inputDate = LocalDate.parse(str.split(" ")[0].replaceAll("[.]", "-"));
+
+            int expire = termsMap.get(key);
+            LocalDate expireDate = inputDate.plusMonths(expire)
+                                 .minusDays(1);
+            if (expireDate.getDayOfMonth() > 28) {
+                expireDate = expireDate.withDayOfMonth(28);
+            }
+
+            if (todayDate.isAfter(expireDate)) {
+                answerList.add(i + 1);
+            }
+        }
+
+        return answerList.stream()
+                         .mapToInt(Integer::intValue)
+                         .toArray();
     }
 
 }
