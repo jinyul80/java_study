@@ -215,7 +215,7 @@ public class Programmers {
 
         int limit = (int) Math.sqrt(num);
 
-        for (int idx = 2; idx < limit; idx++) {
+        for (int idx = 2; idx <= limit; idx++) {
             if (num % idx == 0) {
                 return false;
             }
