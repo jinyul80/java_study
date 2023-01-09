@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Solution2 {
 
@@ -56,6 +58,7 @@ public class Solution2 {
         return true;
     }
 
+    // 예산
     public int solution3(int[] d, int budget) {
         int answer = 0;
 
@@ -72,6 +75,43 @@ public class Solution2 {
         }
 
         return answer;
+    }
+
+    // 다트게임
+    public int solution4(String dartResult) {
+        Pattern pattern = Pattern.compile("[0-9]+[SDT][*#]?");
+        Matcher matcher = pattern.matcher(dartResult);
+        int[] scores = new int[3];
+        int idx = 0;
+
+        while (matcher.find()) {
+            String str = matcher.group();
+
+            int tempNum = Integer.parseInt(str.replaceAll("[A-Z#*]", ""));
+            String expStr = str.replaceAll("[0-9#*]", "");
+            int exp = switch (expStr) {
+                case "D" -> 2;
+                case "T" -> 3;
+                default -> 1;
+            };
+            String specialStr = str.replaceAll("[0-9A-Z]", "");
+            int special = 1;
+            if (specialStr.equals("*")) {
+                special = 2;
+
+                if (idx != 0) {
+                    scores[idx - 1] *= special;
+                }
+
+            } else if (specialStr.equals("#")) {
+                special = -1;
+            }
+
+            scores[idx] = (int) (Math.pow(tempNum, exp) * special);
+            idx++;
+        }
+
+        return Arrays.stream(scores).sum();
     }
 
 }

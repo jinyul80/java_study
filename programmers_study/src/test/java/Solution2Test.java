@@ -29,7 +29,7 @@ class Solution2Test {
 
     @Test
     void sol_예산() {
-        int[] d = {1,3,2,5,4};
+        int[] d = {1, 3, 2, 5, 4};
         int budget = 9;
 
         int answer = s2.solution3(d, budget);
@@ -37,6 +37,16 @@ class Solution2Test {
 
         assertEquals(answer, actual);
 
+    }
+
+    @Test
+    void sol_다트게임() {
+        String dartResult = "1D#2S*3S";
+
+        int answer = s2.solution4(dartResult);
+        int actual = 5;
+
+        assertEquals(answer, actual);
     }
 
 
