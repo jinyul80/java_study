@@ -111,7 +111,40 @@ public class Solution2 {
             idx++;
         }
 
-        return Arrays.stream(scores).sum();
+        return Arrays.stream(scores)
+                     .sum();
+    }
+
+    // 비밀지도
+    public String[] solution5(int n, int[] arr1, int[] arr2) {
+        String[] answer = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            String numStr1 = sol5_change(arr1[i], n);
+            String numStr2 = sol5_change(arr2[i], n);
+
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < numStr1.length(); j++) {
+                if (numStr1.charAt(j) == '1' || numStr2.charAt(j) == '1') {
+                    sb.append('#');
+                } else {
+                    sb.append(' ');
+                }
+            }
+           answer[i] = sb.toString();
+        }
+
+        return answer;
+    }
+
+    private String sol5_change(int number, int length) {
+        // 진법변환        
+        StringBuilder sb = new StringBuilder(Integer.toString(number, 2));
+        while (sb.length() < length) {
+            sb.insert(0, "0");
+        }
+
+        return sb.toString();
     }
 
 }

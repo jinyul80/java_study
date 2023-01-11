@@ -49,5 +49,17 @@ class Solution2Test {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_비밀지도() {
+        int n = 5;
+        int[] arr1 = {9, 20, 28, 18, 11};
+        int[] arr2 = {30, 1, 21, 17, 28};
+
+        String[] answer = s2.solution5(n, arr1, arr2);
+        String[] actual = {"#####","# # #", "### #", "#  ##", "#####"};
+
+        assertArrayEquals(answer, actual);
+    }
+
 
 }
