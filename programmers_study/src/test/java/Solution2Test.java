@@ -61,5 +61,13 @@ class Solution2Test {
         assertArrayEquals(answer, actual);
     }
 
+    @Test
+    void sol_핸드폰번호가리기() {
+        String phone_number = "01033334444";
+        String answer = s2.solution8(phone_number);
+        String actual = "*******4444";
+
+        assertEquals(answer, actual);
+    }
 
 }

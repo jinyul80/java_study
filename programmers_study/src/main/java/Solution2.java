@@ -147,4 +147,63 @@ public class Solution2 {
         return sb.toString();
     }
 
+    // x만큰 간격이 있는 n개의 숫자
+    public long[] solution6(int x, int n) {
+        long[] answer = new long[n];
+
+        for (int i = 0; i < n ; i++) {
+            answer[i] = (long) x + ((long) x * i);
+        }
+
+        return answer;
+    }
+
+    // 행렬의 덧셈
+    public int[][] solution7(int[][] arr1, int[][] arr2) {
+        int[][] answer = new int[arr1.length][arr1[0].length];
+
+        for (int i = 0; i < arr1.length ; i++) {
+            for (int j = 0; j < arr1[0].length ; j++) {
+                answer[i][j] = arr1[i][j] + arr2[i][j];
+            }
+        }
+
+        return answer;
+    }
+
+    // 핸드폰 번호 가리기
+    public String solution8(String phone_number) {
+
+        StringBuilder sb = new StringBuilder();
+        var starLength = phone_number.length() - 4;
+
+        for (int i = 0; i < starLength ; i++) {
+            sb.append("*");
+        }
+        sb.append(phone_number.substring(starLength));
+
+        return sb.toString();
+    }
+
+    // 하샤드 수
+    public boolean solution9(int x) {
+        boolean answer = true;
+
+        if (x > 10) {
+            String numStr = Integer.toString(x);
+            char[] arr = numStr.toCharArray();
+
+            int div = 0;
+            for (int i = 0; i < arr.length ; i++) {
+                div += Character.getNumericValue(arr[i]);
+            }
+
+            if (x % div != 0) {
+                answer = false;
+            }
+        }
+
+        return answer;
+    }
+
 }
