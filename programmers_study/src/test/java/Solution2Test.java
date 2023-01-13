@@ -56,7 +56,7 @@ class Solution2Test {
         int[] arr2 = {30, 1, 21, 17, 28};
 
         String[] answer = s2.solution5(n, arr1, arr2);
-        String[] actual = {"#####","# # #", "### #", "#  ##", "#####"};
+        String[] actual = {"#####", "# # #", "### #", "#  ##", "#####"};
 
         assertArrayEquals(answer, actual);
     }
@@ -66,6 +66,17 @@ class Solution2Test {
         String phone_number = "01033334444";
         String answer = s2.solution8(phone_number);
         String actual = "*******4444";
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_시저암호() {
+        String s = "a B z";
+        int n = 4;
+
+        String answer = s2.solution13(s, n);
+        String actual = "e F d";
 
         assertEquals(answer, actual);
     }

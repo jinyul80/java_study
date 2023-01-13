@@ -131,7 +131,7 @@ public class Solution2 {
                     sb.append(' ');
                 }
             }
-           answer[i] = sb.toString();
+            answer[i] = sb.toString();
         }
 
         return answer;
@@ -151,7 +151,7 @@ public class Solution2 {
     public long[] solution6(int x, int n) {
         long[] answer = new long[n];
 
-        for (int i = 0; i < n ; i++) {
+        for (int i = 0; i < n; i++) {
             answer[i] = (long) x + ((long) x * i);
         }
 
@@ -162,8 +162,8 @@ public class Solution2 {
     public int[][] solution7(int[][] arr1, int[][] arr2) {
         int[][] answer = new int[arr1.length][arr1[0].length];
 
-        for (int i = 0; i < arr1.length ; i++) {
-            for (int j = 0; j < arr1[0].length ; j++) {
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr1[0].length; j++) {
                 answer[i][j] = arr1[i][j] + arr2[i][j];
             }
         }
@@ -177,7 +177,7 @@ public class Solution2 {
         StringBuilder sb = new StringBuilder();
         var starLength = phone_number.length() - 4;
 
-        for (int i = 0; i < starLength ; i++) {
+        for (int i = 0; i < starLength; i++) {
             sb.append("*");
         }
         sb.append(phone_number.substring(starLength));
@@ -194,7 +194,7 @@ public class Solution2 {
             char[] arr = numStr.toCharArray();
 
             int div = 0;
-            for (int i = 0; i < arr.length ; i++) {
+            for (int i = 0; i < arr.length; i++) {
                 div += Character.getNumericValue(arr[i]);
             }
 
@@ -202,6 +202,82 @@ public class Solution2 {
                 answer = false;
             }
         }
+
+        return answer;
+    }
+
+    // 소수찾기
+    public int solution10(int n) {
+        int answer = 0;
+
+        for (int i = 2; i <= n; i++) {
+            if (isPrime(i)) {
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+
+    // 수박수박수박
+    public String solution11(int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 0) {
+                sb.append("수");
+            } else {
+                sb.append("박");
+            }
+        }
+
+        return sb.toString();
+    }
+
+    // 콜라츠 추측
+    public int solution12(long num) {
+        int answer = 0;
+
+        while (!(num == 1)) {
+            if (answer >= 500) {
+                answer = -1;
+                break;
+            }
+
+            if (num % 2 == 0) {
+                num /= 2;
+            } else {
+                num = (num * 3) + 1;
+            }
+
+            answer++;
+        }
+
+        return answer;
+    }
+
+    // 시저 암호
+    public String solution13(String s, int n) {
+        char[] arr = s.toCharArray();
+        for (int i = 0; i < arr.length; i++) {
+            char ch = arr[i];
+            int asc = (int) ch;
+
+            if (asc == 32) {
+                continue;
+            }
+
+            int newasc = asc + n;
+
+            if (asc < 97 && newasc > 90) {
+                newasc -= 26;
+            } else if (newasc > 122) {
+                newasc -= 26;
+            }
+
+            arr[i] = (char) newasc;
+        }
+
+        String answer = new String(arr);
 
         return answer;
     }
