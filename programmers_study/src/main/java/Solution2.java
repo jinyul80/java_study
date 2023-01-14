@@ -282,4 +282,31 @@ public class Solution2 {
         return answer;
     }
 
+    // 평균 구하기
+    public double solution14(int[] arr) {
+        double answer = 0;
+
+        answer = Arrays.stream(arr)
+                       .average()
+                       .orElse(0);
+
+        return answer;
+    }
+
+    // 제일 작은 수 제거하기
+    public int[] solution(int[] arr) {
+
+        if (arr.length == 1) {
+            return new int[]{-1};
+        }
+
+        int min = Arrays.stream(arr)
+                        .min()
+                        .getAsInt();
+
+        return Arrays.stream(arr)
+                     .filter(i -> i != min)
+                     .toArray();
+    }
+
 }
