@@ -16,6 +16,17 @@ class Solution3Test {
         long actual = 6;
 
         assertEquals(answer, actual);
-
     }
+
+    @Test
+    void sol_숫자카드나누기() {
+        int[] arrA = {10, 20};
+        int[] arrB = {5, 17};
+
+        int answer = s3.solution3(arrA, arrB);
+        int actual = 10;
+
+        assertEquals(answer, actual);
+    }
+
 }

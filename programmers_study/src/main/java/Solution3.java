@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -44,5 +45,72 @@ public class Solution3 {
 
         return answer;
     }
+
+    // 숫자 카드 나누기
+    public int solution3(int[] arrayA, int[] arrayB) {
+        int answer = 0;
+
+        int minA = Arrays.stream(arrayA)
+                         .min()
+                         .getAsInt();
+        int minB = Arrays.stream(arrayB)
+                         .min()
+                         .getAsInt();
+
+        for (int min : new int[]{minA, minB}) {
+            // 약수 리스트
+            List<Integer> divisorList = getDivisorList(min);
+
+            for (int i = divisorList.size() - 1; i >= 0; i--) {
+                int div = divisorList.get(i);
+
+                boolean flagA = Arrays.stream(arrayA).allMatch(v -> v % div == 0);
+                boolean flagB = Arrays.stream(arrayB).allMatch(v -> v % div != 0);
+
+                if (flagA && flagB) {
+                    if (div > answer) {
+                        answer = div;
+                    }
+                    break;
+                }
+
+                boolean flagC = Arrays.stream(arrayB).allMatch(v -> v % div == 0);
+                boolean flagD = Arrays.stream(arrayA).allMatch(v -> v % div != 0);
+
+                if (flagC && flagD) {
+                    if (div > answer) {
+                        answer = div;
+                    }
+                    break;
+                }
+
+            }
+        }
+
+        return answer;
+    }
+
+    /**
+     * 약수 리스트 조회
+     *
+     * @param num 약수를 구하려는 수
+     * @return 약수 리스트
+     */
+    private List<Integer> getDivisorList(int num) {
+        List<Integer> divisorList = new ArrayList<>();
+        for (int i = 1; i < Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                divisorList.add(i);
+
+                if (num / i != i) {
+                    divisorList.add(num / i);
+                }
+            }
+        }
+
+        divisorList.sort(Comparator.naturalOrder());
+        return divisorList;
+    }
+
 
 }
