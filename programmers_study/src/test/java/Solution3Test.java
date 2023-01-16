@@ -29,4 +29,14 @@ class Solution3Test {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_롤케이크자리그() {
+        int[] topping = {1, 2, 1, 3, 1, 4, 1, 2};
+
+        int answer = s3.solution4(topping);
+        int actual = 2;
+
+        assertEquals(answer, actual);
+    }
+
 }

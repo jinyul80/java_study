@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Solution3 {
 
@@ -64,8 +66,10 @@ public class Solution3 {
             for (int i = divisorList.size() - 1; i >= 0; i--) {
                 int div = divisorList.get(i);
 
-                boolean flagA = Arrays.stream(arrayA).allMatch(v -> v % div == 0);
-                boolean flagB = Arrays.stream(arrayB).allMatch(v -> v % div != 0);
+                boolean flagA = Arrays.stream(arrayA)
+                                      .allMatch(v -> v % div == 0);
+                boolean flagB = Arrays.stream(arrayB)
+                                      .allMatch(v -> v % div != 0);
 
                 if (flagA && flagB) {
                     if (div > answer) {
@@ -74,8 +78,10 @@ public class Solution3 {
                     break;
                 }
 
-                boolean flagC = Arrays.stream(arrayB).allMatch(v -> v % div == 0);
-                boolean flagD = Arrays.stream(arrayA).allMatch(v -> v % div != 0);
+                boolean flagC = Arrays.stream(arrayB)
+                                      .allMatch(v -> v % div == 0);
+                boolean flagD = Arrays.stream(arrayA)
+                                      .allMatch(v -> v % div != 0);
 
                 if (flagC && flagD) {
                     if (div > answer) {
@@ -112,5 +118,36 @@ public class Solution3 {
         return divisorList;
     }
 
+    // 롤케이크자르기
+    public int solution4(int[] topping) {
+        int answer = 0;
+
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int num : topping) {
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < topping.length - 1; i++) {
+            int num = topping[i];
+            set.add(num);
+
+            if (map.get(num) == 1) {
+                map.remove(num);
+            } else {
+                map.put(num, map.get(num) - 1);
+            }
+
+            int cnt = map.keySet().size();
+            if (cnt == set.size()) {
+                answer++;
+            } else if (cnt < set.size()) {
+                break;
+            }
+
+        }
+
+        return answer;
+    }
 
 }
