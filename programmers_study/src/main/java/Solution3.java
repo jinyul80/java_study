@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 public class Solution3 {
 
@@ -138,7 +139,8 @@ public class Solution3 {
                 map.put(num, map.get(num) - 1);
             }
 
-            int cnt = map.keySet().size();
+            int cnt = map.keySet()
+                         .size();
             if (cnt == set.size()) {
                 answer++;
             } else if (cnt < set.size()) {
@@ -149,5 +151,60 @@ public class Solution3 {
 
         return answer;
     }
+
+    // 택배상자
+    public int solution5(int[] order) {
+        int answer = 0;
+
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 1; i < order.length + 1; i++) {
+            if (i == order[answer]) {
+                // 현재 box번호가 order번호와 일치하는 경우
+                answer++;
+
+                while (stack.size() > 0) {
+                    // 보조 컨베이어의 최상단의 box번호가 order번호가 일치하는제 체크
+                    if (stack.peek() == order[answer]) {
+                        answer++;
+                        stack.pop();
+                    } else {
+                        break;
+                    }
+                }
+
+            } else if (i < order[answer]) {
+                // 현재 box번호가 order번호 보다 작은 경우 보조 컨베이어로 이동
+                stack.push(i);
+            } else {
+                // 현재 box번호가 order번호 보다 큰 경우 종료
+                break;
+            }
+        }
+
+        return answer;
+    }
+
+    // 연속 부분 수열 합의 개수
+    public int solution6(int[] elements) {
+        // 연속 수열을 위해 배열 2배로 새로 형성
+        int[] newElements = new int[elements.length * 2];
+        for (int i = 0; i < elements.length; i++) {
+            newElements[i] = elements[i];
+            newElements[i + elements.length] = elements[i];
+        }
+
+        // 중복 수 제거를 위해 Set 사용
+        Set<Integer> set = new HashSet<>();
+
+        for (int len = 1; len <= elements.length; len++) {
+            for (int idx = 0; idx < elements.length; idx++) {
+                // idx부터 len길이까지 배열을 새로 만들고 합계를 Set에 추가
+                set.add(Arrays.stream(newElements, idx, idx+len).sum());
+            }
+        }
+
+        return set.size();
+    }
+
 
 }

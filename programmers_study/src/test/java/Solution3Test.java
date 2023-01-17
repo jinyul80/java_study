@@ -39,4 +39,24 @@ class Solution3Test {
         assertEquals(answer, actual);
     }
 
+    @Test
+    void sol_택배상자() {
+        int[] orders = {5, 4, 3, 2, 1};
+
+        int answer = s3.solution5(orders);
+        int actual = 5;
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_연속부분수열합의개수() {
+        int[] elements = {7,9,1,1,4};
+
+        int answer = s3.solution6(elements);
+        int actual = 18;
+
+        assertEquals(answer, actual);
+    }
+
 }
