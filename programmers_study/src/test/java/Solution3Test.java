@@ -51,10 +51,20 @@ class Solution3Test {
 
     @Test
     void sol_연속부분수열합의개수() {
-        int[] elements = {7,9,1,1,4};
+        int[] elements = {7, 9, 1, 1, 4};
 
         int answer = s3.solution6(elements);
         int actual = 18;
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_혼자놀기의달인() {
+        int[] cards = {8,6,3,7,2,5,1,4};
+
+        int answer = s3.solution7(cards);
+        int actual = 12;
 
         assertEquals(answer, actual);
     }

@@ -199,12 +199,60 @@ public class Solution3 {
         for (int len = 1; len <= elements.length; len++) {
             for (int idx = 0; idx < elements.length; idx++) {
                 // idx부터 len길이까지 배열을 새로 만들고 합계를 Set에 추가
-                set.add(Arrays.stream(newElements, idx, idx+len).sum());
+                set.add(Arrays.stream(newElements, idx, idx + len)
+                              .sum());
             }
         }
 
         return set.size();
     }
 
+    // 혼자 놀기의 달인
+    public int solution7(int[] cards) {
+        int answer = 0;
+
+        int[] opened = new int[cards.length];
+        List<Integer> scoreList = new ArrayList<>();
+
+        int openCount = 0;
+        int score = 0;
+        int idx = 0;
+        while (true) {
+            if (opened[idx] == 0) {
+                // 처음 Open한 상자인 경우
+                openCount++;
+                score++;
+                opened[idx] = 1;
+
+                idx = cards[idx] - 1;
+
+            } else {
+                // 이미 열린 상자인 경우
+                scoreList.add(score);
+                score = 0;
+
+                // 상자를 모두 열었으면 종료
+                if (openCount == cards.length) {
+                    break;
+                }
+
+                // Open하지 않은 상자 번호를 조회
+                for (int i = 0; i < cards.length; i++) {
+                    if (opened[i] == 0) {
+                        idx = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // 점수 리스트 정렬해서 최고 점수 2개 곱셈
+        if (scoreList.size() > 1) {
+            scoreList.sort(Comparator.reverseOrder());
+            answer = scoreList.get(0) * scoreList.get(1);
+        }
+
+        return answer;
+    }
 
 }
