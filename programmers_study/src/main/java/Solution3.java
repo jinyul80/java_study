@@ -3,8 +3,10 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
@@ -254,5 +256,62 @@ public class Solution3 {
 
         return answer;
     }
+
+    // 두 큐 합 같게 만들기
+    public int solution8(int[] queue1, int[] queue2) {
+        // 큐 생성
+        Queue<Integer> q1 = new LinkedList<>();
+        Queue<Integer> q2 = new LinkedList<>();
+
+        int maxNum = 0;
+        long sum1 = 0;
+        long sum2 = 0;
+
+        for (int i = 0; i < queue1.length; i++) {
+            int num1 = queue1[i];
+            q1.add(num1);
+            maxNum = Math.max(maxNum, num1);
+            sum1 += num1;
+
+            int num2 = queue2[i];
+            q2.add(num2);
+            maxNum = Math.max(maxNum, num2);
+            sum2 += num2;
+        }
+
+        // 최대 숫자가 전체합의 반보다 큰 경우 -1 리턴
+        if (maxNum > (sum1 + sum2) / 2) {
+            return -1;
+        } else if (sum1 == sum2) {
+            return 0;
+        }
+
+        int loofCount = 0;
+        while (sum1 != sum2) {
+            // 무한 반복 방지
+            if (loofCount >= queue1.length * 3) {
+                return -1;
+            }
+
+            if (sum1 < sum2) {
+                int num = q2.poll();
+                q1.add(num);
+
+                sum2 -= num;
+                sum1 += num;
+            } else {
+                int num = q1.poll();
+                q2.add(num);
+
+                sum1 -= num;
+                sum2 += num;
+            }
+            loofCount++;
+        }
+
+        return loofCount;
+    }
+
+
 
 }

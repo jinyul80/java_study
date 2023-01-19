@@ -61,10 +61,43 @@ class Solution3Test {
 
     @Test
     void sol_혼자놀기의달인() {
-        int[] cards = {8,6,3,7,2,5,1,4};
+        int[] cards = {8, 6, 3, 7, 2, 5, 1, 4};
 
         int answer = s3.solution7(cards);
         int actual = 12;
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_두큐합같게만들기1() {
+        int[] queue1 = {3, 2, 7, 2};
+        int[] queue2 = {4, 6, 5, 1};
+
+        int answer = s3.solution8(queue1, queue2);
+        int actual = 2;
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_두큐합같게만들기2() {
+        int[] queue1 = {1, 2, 1, 2};
+        int[] queue2 = {1, 10, 1, 2};
+
+        int answer = s3.solution8(queue1, queue2);
+        int actual = 7;
+
+        assertEquals(answer, actual);
+    }
+
+    @Test
+    void sol_두큐합같게만들기3() {
+        int[] queue1 = {1, 1};
+        int[] queue2 = {1, 5};
+
+        int answer = s3.solution8(queue1, queue2);
+        int actual = -1;
 
         assertEquals(answer, actual);
     }
