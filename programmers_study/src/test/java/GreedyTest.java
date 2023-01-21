@@ -14,4 +14,14 @@ class GreedyTest {
         int result = sol.solution1(5, losts,  reserves);
         assertEquals(result, 5);
     }
+
+    @Test
+    void 순열() {
+        sol.permutation();
+    }
+
+    @Test
+    void 조합() {
+        sol.combination();
+    }
 }
