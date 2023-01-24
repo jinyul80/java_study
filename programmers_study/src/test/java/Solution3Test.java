@@ -102,17 +102,4 @@ class Solution3Test {
         assertEquals(answer, actual);
     }
 
-    @Test
-    void sol_양궁대회() {
-        int n = 5;
-        int[] infos = {2,1,1,1,0,0,0,0,0,0,0};
-
-        int[] answer = s3.solution9(n, infos);
-        int[] actual = {0,2,2,0,1,0,0,0,0,0,0};
-
-        assertArrayEquals(answer, actual);
-    }
-
-
-
 }

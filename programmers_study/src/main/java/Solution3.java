@@ -312,35 +312,4 @@ public class Solution3 {
         return loofCount;
     }
 
-    // 양궁대회
-    public int[] solution9(int n, int[] info) {
-        int[] answer = new int[info.length];
-
-        int maxDiff = 0;
-        int[] tempList = new int[info.length-1];
-
-        sol9_dfs(info, tempList, n, 0, 0);
-
-        return answer;
-    }
-
-    public void sol9_dfs(int[] info, int[] tempList, int max, int cnt, int start) {
-
-        if (max == cnt) {
-            System.out.println(Arrays.toString(info));
-        }
-
-        for (int i = start; i < info.length; i++) {
-            info[i]++;
-
-            int apeachArrow = info[i];
-
-            sol9_dfs(info, tempList, max, cnt, i +1);
-            info[i]--;
-        }
-    }
-
-
-
-
 }
