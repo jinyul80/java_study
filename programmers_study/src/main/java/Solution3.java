@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
+import java.util.TreeMap;
 
 public class Solution3 {
 
@@ -312,4 +314,61 @@ public class Solution3 {
         return loofCount;
     }
 
+    // 주차 요금 계산
+    public int[] solution9(int[] fees, String[] records) {
+
+        // 차량 입차 관리 Map
+        Map<String, Integer> timeMap = new HashMap<>();
+        // 차량별 누적 주차시간 Map
+        Map<String, Integer> totalTimeMap = new TreeMap<>();
+
+        for (String record : records) {
+            String[] strList = record.split(" ");
+            int minute = timeToMinute(strList[0]);
+            String carNo = strList[1];
+
+            if (strList[2].equals("IN")) {
+                // 입차 시간 기록
+                timeMap.put(carNo, minute);
+
+            } else {
+                // 출차인 경우 주차 시간 계산
+                int parkingMinute = minute - timeMap.get(carNo);
+                totalTimeMap.put(carNo, totalTimeMap.getOrDefault(carNo, 0) + parkingMinute);
+
+                // 입차 map에서 삭제
+                timeMap.remove(carNo);
+            }
+        }
+
+        // 출차 기록이 없는 차량 처리
+        for (Entry<String, Integer> entry : timeMap.entrySet()) {
+            int parkingMinute = (23 * 60 + 59) - entry.getValue();
+            String carNo = entry.getKey();
+            totalTimeMap.put(carNo, totalTimeMap.getOrDefault(carNo, 0) + parkingMinute);
+        }
+
+        // 요금 계산
+        int[] answer = new int[totalTimeMap.size()];
+        int idx = 0;
+
+        for (Entry<String, Integer> entry : totalTimeMap.entrySet()) {
+            int fee = fees[1];
+
+            if (entry.getValue() > fees[0]) {
+                fee += Math.ceil((float) (entry.getValue() - fees[0]) / fees[2]) * fees[3];
+            }
+
+            answer[idx] = fee;
+            idx++;
+        }
+
+        return answer;
+    }
+
+    // 주차요금계산 문제 시간 문자열을 분으로 바꾸는 함수
+    public int timeToMinute(String str) {
+        String[] arr = str.split(":");
+        return Integer.parseInt(arr[0]) * 60 + Integer.parseInt(arr[1]);
+    }
 }
