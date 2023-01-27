@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,10 +8,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 public class Solution3 {
 
@@ -371,4 +374,71 @@ public class Solution3 {
         String[] arr = str.split(":");
         return Integer.parseInt(arr[0]) * 60 + Integer.parseInt(arr[1]);
     }
+
+    // 할인행사
+    public int solution10(String[] want, int[] number, String[] discount) {
+        int answer = 0;
+
+        // 구매할 항목
+        Map<String, Integer> buyMap = new HashMap<>();
+        for (int i = 0; i < want.length; i++) {
+            buyMap.put(want[i], number[i]);
+        }
+
+        for (int idx = 0; idx < discount.length - 9; idx++) {
+            // 인덱스부터 10일씩 할인 목록
+            Map<String, Integer> itemMap = new HashMap<>();
+
+            for (int j = idx; j < idx + 10; j++) {
+                String key = discount[j];
+                itemMap.put(key, itemMap.getOrDefault(key, 0) + 1);
+            }
+
+            // 구매할 항목을 모두 구매 할 수 있는지 체크
+            boolean flag = true;
+            for (Entry<String, Integer> entry : buyMap.entrySet()) {
+                if (!itemMap.containsKey(entry.getKey())) {
+                    flag = false;
+                    break;
+                } else if (entry.getValue() != itemMap.get(entry.getKey())) {
+                    flag = false;
+                    break;
+                }
+            }
+
+            if (flag) {
+                answer++;
+            }
+        }
+
+        return answer;
+    }
+
+    // 디펜스 게임
+    public int solution11(int n, int k, int[] enemy) {
+        int answer = 0;
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        for (int i = 0; i < enemy.length; i++) {
+            int e = enemy[i];
+            pq.add(e);
+
+            if (n < e) {
+                if (k == 0) {
+                    break;
+                } else {
+                    k--;
+                    n += pq.poll() - e;
+                }
+            } else {
+                n -= e;
+            }
+
+            answer++;
+        }
+
+        return answer;
+    }
+
 }
