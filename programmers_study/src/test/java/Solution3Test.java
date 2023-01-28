@@ -151,4 +151,14 @@ class Solution3Test {
 
         assertEquals(answer, actual);
     }
+
+    @Test
+    void 마법의엘리베이터() {
+        int storey = 95;
+
+        int answer = s3.solution12(storey);
+        int actual = 6;
+
+        assertEquals(answer, actual);
+    }
 }

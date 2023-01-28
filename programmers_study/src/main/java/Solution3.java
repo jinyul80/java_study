@@ -441,4 +441,45 @@ public class Solution3 {
         return answer;
     }
 
+    // 마법의 엘리베이터
+    public int solution12(int storey) {
+        int answer = 0;
+
+        Stack<Integer> stack = new Stack<>();
+
+        // 숫자를 한자리씩 나누어서 stack에 추가
+        Stream.of(String.valueOf(storey)
+                        .split(""))
+              .mapToInt(Integer::parseInt)
+              .forEach(stack::push);
+
+        while (!stack.isEmpty()) {
+            int num = stack.pop();
+
+            if (num > 5) {
+                // 5 초과인 경우 윗자리에 +1 적용
+                answer += 10 - num;
+
+                if (stack.isEmpty()) {
+                    answer++;
+                } else {
+                    int temp = stack.pop() + 1;
+                    stack.push(temp);
+                }
+            } else if (num == 5) {
+                // 5 인 경우 윗자리를 기준으로 어떻게 할 것인지 결정
+                answer += 10 - num;
+
+                if (!stack.isEmpty() && stack.peek() >= 5) {
+                    int temp = stack.pop() + 1;
+                    stack.push(temp);
+                }
+            } else {
+                // 5 미만인 경우
+                answer += num;
+            }
+        }
+
+        return answer;
+    }
 }
