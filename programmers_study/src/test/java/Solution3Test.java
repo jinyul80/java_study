@@ -161,4 +161,18 @@ class Solution3Test {
 
         assertEquals(answer, actual);
     }
+
+    @Test
+    void 테이블해시함수() {
+        int[][] data = {{2,2,6},{1,5,10},{4,2,9},{3,8,3}};
+        int col = 2;
+        int row_begin = 2;
+        int row_end = 3;
+
+        int answer = s3.solution13(data, col, row_begin, row_end);
+        int actual = 4;
+
+        assertEquals(answer, actual);
+
+    }
 }

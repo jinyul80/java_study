@@ -482,4 +482,53 @@ public class Solution3 {
 
         return answer;
     }
+
+    // 테이블 해시 함수
+    public int solution13(int[][] data, int col, int row_begin, int row_end) {
+
+        // 정렬 전 data
+        Arrays.stream(data)
+              .forEach(v -> System.out.println(Arrays.toString(v)));
+
+        // 정렬
+        Arrays.sort(data, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                if (o1[col - 1] == o2[col - 1]) {
+                    return o2[0] - o1[0];
+                } else {
+                    return o1[col - 1] - o2[col - 1];
+                }
+            }
+        });
+
+        // 정렬 후 data
+        System.out.println("*** change ***");
+        Arrays.stream(data)
+              .forEach(v -> System.out.println(Arrays.toString(v)));
+
+        // row별 나머지 합
+        List<Integer> modList = new ArrayList<>();
+        for (int i = row_begin - 1; i <= row_end - 1; i++) {
+            int[] row = data[i];
+
+            int modSum = 0;
+            for (int j = 0; j < row.length; j++) {
+                modSum += row[j] % (i + 1);
+            }
+
+            modList.add(modSum);
+
+            System.out.printf("RowIndex: %d, Data: '%s', modSum: %d\n", i, Arrays.toString(row),
+                modSum);
+        }
+
+        // 나머지 리스트의 누적 XOR 연산
+        int answer = modList.get(0);
+        for (int i = 1; i < modList.size(); i++) {
+            answer = (answer ^ modList.get(i));
+        }
+
+        return answer;
+    }
 }
