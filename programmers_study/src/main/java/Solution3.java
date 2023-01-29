@@ -487,8 +487,7 @@ public class Solution3 {
     public int solution13(int[][] data, int col, int row_begin, int row_end) {
 
         // 정렬 전 data
-        Arrays.stream(data)
-              .forEach(v -> System.out.println(Arrays.toString(v)));
+        System.out.println(Arrays.deepToString(data));
 
         // 정렬
         Arrays.sort(data, new Comparator<int[]>() {
@@ -504,8 +503,7 @@ public class Solution3 {
 
         // 정렬 후 data
         System.out.println("*** change ***");
-        Arrays.stream(data)
-              .forEach(v -> System.out.println(Arrays.toString(v)));
+        System.out.println(Arrays.deepToString(data));
 
         // row별 나머지 합
         List<Integer> modList = new ArrayList<>();
