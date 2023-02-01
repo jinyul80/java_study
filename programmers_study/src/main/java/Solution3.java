@@ -529,4 +529,74 @@ public class Solution3 {
 
         return answer;
     }
+
+    // 시소짝궁
+    public long solution14(int[] weights) {
+        long answer = 0;
+
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int weight : weights) {
+            map.put(weight, map.getOrDefault(weight, 0) + 1);
+        }
+
+        Set<Integer> keySet = new HashSet<>(map.keySet());
+
+        for (int key : keySet) {
+
+            int weightCount = map.get(key);
+            if (weightCount > 1) {
+                answer += (long) weightCount * (weightCount - 1) / 2;
+            }
+
+            int findKey = 0;
+            int w = 0;
+
+            w = key * 2;
+            findKey = w / 3;
+            if (w % 3 == 0) {
+                if (map.containsKey(findKey)) {
+                    answer += (long) weightCount * map.get(findKey);
+                }
+            }
+            findKey = w / 4;
+            if (w % 4 == 0) {
+                if (map.containsKey(findKey)) {
+                    answer += (long) weightCount * map.get(findKey);
+                }
+            }
+
+            w = key * 3;
+            findKey = w / 2;
+            if (w % 2 == 0) {
+                if (map.containsKey(findKey)) {
+                    answer += (long) weightCount * map.get(findKey);
+                }
+            }
+            findKey = w / 4;
+            if (w % 4 == 0) {
+                if (map.containsKey(findKey)) {
+                    answer += (long) weightCount * map.get(findKey);
+                }
+            }
+
+            w = key * 4;
+            findKey = w / 2;
+            if (w % 2 == 0) {
+                if (map.containsKey(findKey)) {
+                    answer += (long) weightCount * map.get(findKey);
+                }
+            }
+            findKey = w / 3;
+            if (w % 3 == 0) {
+                if (map.containsKey(findKey)) {
+                    answer += (long) weightCount * map.get(findKey);
+                }
+            }
+
+            map.remove(key);
+        }
+
+        return answer;
+    }
 }

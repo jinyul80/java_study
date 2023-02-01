@@ -164,7 +164,7 @@ class Solution3Test {
 
     @Test
     void 테이블해시함수() {
-        int[][] data = {{2,2,6},{1,5,10},{4,2,9},{3,8,3}};
+        int[][] data = {{2, 2, 6}, {1, 5, 10}, {4, 2, 9}, {3, 8, 3}};
         int col = 2;
         int row_begin = 2;
         int row_end = 3;
@@ -173,6 +173,15 @@ class Solution3Test {
         int actual = 4;
 
         assertEquals(answer, actual);
+    }
 
+    @Test
+    void 시소짝궁() {
+        int[] weights = {100,180,360,100,270};
+
+        long answer = s3.solution14(weights);
+        long actual = 4L;
+
+        assertEquals(answer, actual);
     }
 }
