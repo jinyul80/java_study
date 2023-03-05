@@ -8,5 +8,5 @@
 
   - 도커 실행
     ```
-    docker run --name mariadb -d -p 3306:3306 --restart=always -e MYSQL_ROOT_PASSWORD=5762 mariadb
+    docker run --name mariadb -d -p 3306:3306 --restart=always -e MYSQL_ROOT_PASSWORD=5762 -v D:\Program_source\docker\mariadb\data:/var/lib/mysql  mariadb --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ```
