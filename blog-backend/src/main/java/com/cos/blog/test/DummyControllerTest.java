@@ -3,6 +3,7 @@ package com.cos.blog.test;
 import com.cos.blog.model.RoleType;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -15,6 +16,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,5 +59,23 @@ public class DummyControllerTest {
     public User detail(@PathVariable int id) {
         return userRepository.findById(id).orElseThrow(
             () -> new IllegalArgumentException("해당 유저는 없습니다. id: " + id));
+    }
+
+    @Transactional
+    @PutMapping("/dummy/user/{id}")
+    public User updateUser(@PathVariable int id, @RequestBody User reqUser) {
+        System.out.println(reqUser);
+
+        User user = userRepository.findById(id).orElseThrow(
+            () -> new IllegalArgumentException("해당 유저는 없습니다. id: " + id));
+
+        user.setPassword(reqUser.getPassword());
+        user.setEmail(reqUser.getEmail());
+
+        // Transactional 어노테이션 사용하면 메서드 종료시 자동 commit 됨
+        // save를 명시적으로 실행 할 필요 없음
+        // userRepository.save(user);
+
+        return user;
     }
 }
