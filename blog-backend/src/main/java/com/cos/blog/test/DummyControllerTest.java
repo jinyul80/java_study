@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +35,22 @@ public class DummyControllerTest {
     @GetMapping("/dummy/user")
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    // Page정보를 포함해서 리턴
+    //    @GetMapping("/dummy/user/page")
+    //    public Page<User> pageList(@PageableDefault(size=2, sort = "id", direction = Direction.DESC)
+    //        Pageable pageable) {
+    //        return userRepository.findAll(pageable);
+    //    }
+
+    // 실제 데이터 정보만 리턴
+    @GetMapping("/dummy/user/page")
+    public List<User> pageList(@PageableDefault(size=2, sort = "id", direction = Direction.DESC)
+    Pageable pageable) {
+        Page<User> pagingUser = userRepository.findAll(pageable);
+        List<User> users = pagingUser.getContent();
+        return users;
     }
 
     @GetMapping("/dummy/user/{id}")
