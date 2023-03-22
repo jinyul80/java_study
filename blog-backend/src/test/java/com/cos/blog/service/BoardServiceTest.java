@@ -49,4 +49,38 @@ class BoardServiceTest {
             .isThrownBy(() -> boardService.detail(id))
             .withMessage("해당 게시글은 없습니다. id: " + id);
     }
+
+    @Test
+    @Transactional
+    void deleteBoard() {
+        int id = 4;
+
+        assertThatNoException()
+            .isThrownBy(() -> boardService.deleteBoard(id));
+
+        assertThatIllegalArgumentException()
+            .isThrownBy(() -> boardService.detail(id))
+            .withMessage("해당 게시글은 없습니다. id: " + id);
+    }
+
+    @Test
+    @Transactional
+    void updateBoard() {
+        int id = 4;
+        Board board = Board.builder()
+            .id(id)
+            .title("글쓰기 테스트 4")
+            .content("내용 수정했습니다")
+            .build();
+
+        assertThatNoException()
+            .isThrownBy(() -> boardService.updateBoard(id, board));
+
+        Board resBoard = boardService.detail(id);
+
+        assertThat(resBoard.getTitle()).isEqualTo(board.getTitle());
+        assertThat(resBoard.getContent()).isEqualTo(board.getContent());
+
+
+    }
 }
