@@ -1,5 +1,6 @@
 package com.cos.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,6 +49,7 @@ public class Board {
     // FetchType.EAGER: 즉시 데이터 로딩
     // FetchType.LAZY: 필요할 때 데이터 로딩(지연 로딩)
     @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"board"})
     private List<Reply> reply;
 
     @CreationTimestamp

@@ -1,9 +1,12 @@
 package com.cos.blog.controller;
 
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.dto.ResponseDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
+import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.UserRepository;
 import com.cos.blog.service.BoardService;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
@@ -31,20 +34,20 @@ public class BoardController {
     private UserRepository userRepository;
 
     @PostMapping("/api/board")
-    public ResponseDto<Integer> join(@RequestBody Board board)
-        throws Exception {
-        User user = userRepository.findById(1)
-                                  .orElseThrow(() -> {
-                                      return new UserPrincipalNotFoundException(
-                                          "해당 사용자가 없습니다. id: " + 1);
-                                  });
+    public ResponseDto<Integer> join(@RequestBody Board board) {
+        User user = userRepository
+            .findById(1)
+            .orElseThrow(() -> {
+                return new IllegalArgumentException(
+                    "해당 사용자가 없습니다. id: " + 1);
+            });
         board.setUser(user);
         boardService.write(board);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     @GetMapping("/api/board")
-    public List<Board> pageList(@PageableDefault(size=2, sort = "id", direction = Direction.DESC)
+    public List<Board> pageList(@PageableDefault(size = 2, sort = "id", direction = Direction.DESC)
     Pageable pageable) {
         return boardService.pageList(pageable);
     }
@@ -66,5 +69,16 @@ public class BoardController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
+    @PostMapping("/api/board/{boardId}/reply")
+    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replyDto) {
+        Reply reply = boardService.replySave(replyDto);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
+
+    @DeleteMapping("/api/reply/{id}")
+    public ResponseDto<Integer> deleteReply(@PathVariable int id) {
+        boardService.deleteReply(id);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
 
 }

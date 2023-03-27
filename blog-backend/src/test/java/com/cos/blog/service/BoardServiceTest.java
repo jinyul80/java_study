@@ -3,7 +3,9 @@ package com.cos.blog.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
+import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -80,7 +82,35 @@ class BoardServiceTest {
 
         assertThat(resBoard.getTitle()).isEqualTo(board.getTitle());
         assertThat(resBoard.getContent()).isEqualTo(board.getContent());
-
-
     }
+
+    @Test
+    @Transactional
+    void saveReply() {
+        int userId = 1;
+        int boardId = 1;
+
+        ReplySaveRequestDto replyDto = ReplySaveRequestDto
+            .builder()
+            .userId(userId)
+            .boardId(boardId)
+            .content("댓글 세이브 테스트")
+            .build();
+
+        Reply reply = boardService.replySave(replyDto);
+
+        assertThat(reply.getContent()).isEqualTo(replyDto.getContent());
+        assertThat(reply.getBoard().getId()).isEqualTo(boardId);
+    }
+
+    @Test
+    @Transactional
+    void deleteReply() {
+        int id = 5;
+
+        assertThatNoException()
+            .isThrownBy(() -> boardService.deleteReply(id));
+    }
+
+
 }
