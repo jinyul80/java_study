@@ -1,11 +1,9 @@
 package stydy;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -13,15 +11,18 @@ import org.junit.jupiter.api.Test;
 
 class SorterTest {
 
-    @Test
-    void selectionSort() {
-        int N = 20;
+    int[] getNumArray() {
+        int N = 100000;
         int[] A = new int[N];
 
-        for (int i = 0; i < N ; i++) {
+        for (int i = 0; i < N; i++) {
             A[i] = N - i;
         }
 
+        return A;
+    }
+
+    int[] shuffleNumArray(int[] A) {
         List<Integer> list = Arrays.stream(A)
                                    .boxed()
                                    .collect(Collectors.toList());
@@ -29,20 +30,41 @@ class SorterTest {
         Collections.shuffle(list, new Random(777));
 
         int[] shuffle_A = list.stream()
-            .mapToInt(Integer::intValue)
-            .toArray();
+                              .mapToInt(Integer::intValue)
+                              .toArray();
 
-        // 정렬 전      
-        System.out.println(Arrays.toString(shuffle_A));
-        
+        return shuffle_A;
+    }
+
+    @Test
+    void selectionSort() {
+        int[] A = getNumArray();
+        int[] shuffle_A = shuffleNumArray(A);
+
         Sorter sorter = new Sorter();
         int[] result = sorter.selectionSort(shuffle_A);
 
         // 정렬 후
-        System.out.println(Arrays.toString(result));
+        if (A.length <= 100) {
+            System.out.println(Arrays.toString(result));
+        }
 
         assertArrayEquals(result, A);
+    }
 
+    @Test
+    void bubbleSort() {
+        int[] A = getNumArray();
+        int[] shuffle_A = shuffleNumArray(A);
 
+        Sorter sorter = new Sorter();
+        int[] result = sorter.bubbleSort(shuffle_A);
+
+        // 정렬 후
+        if (A.length <= 100) {
+            System.out.println(Arrays.toString(result));
+        }
+
+        assertArrayEquals(result, A);
     }
 }
