@@ -55,4 +55,33 @@ public class Sorter {
         return arr;
     }
 
+
+    /**
+     * 삽입 정렬 메서드(내림차순 정렬)
+     *
+     * @param arr
+     * @return
+     */
+    public int[] insertionSort(int[] arr) {
+        int idx1 = 0;
+        int idx2 = 0;
+        int num = 0;
+
+        for (idx2 = 1; idx2 < arr.length; idx2++) {
+            num = arr[idx2];
+
+            for (idx1 = idx2 - 1; idx1 >= 0; idx1--) {
+                if (arr[idx1] < num) {
+                    arr[idx1 + 1] = arr[idx1];
+                } else if (arr[idx1] > num) {
+                    break;
+                }
+            }
+
+            arr[idx1 + 1] = num;
+        }
+
+        return arr;
+    }
+
 }

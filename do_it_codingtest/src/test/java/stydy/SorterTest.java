@@ -7,12 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.RepeatedTest;
 
 class SorterTest {
 
     int[] getNumArray() {
-        int N = 100000;
+        int N = 50000;
         int[] A = new int[N];
 
         for (int i = 0; i < N; i++) {
@@ -36,7 +36,7 @@ class SorterTest {
         return shuffle_A;
     }
 
-    @Test
+    @RepeatedTest(5)
     void selectionSort() {
         int[] A = getNumArray();
         int[] shuffle_A = shuffleNumArray(A);
@@ -52,13 +52,29 @@ class SorterTest {
         assertArrayEquals(result, A);
     }
 
-    @Test
+    @RepeatedTest(5)
     void bubbleSort() {
         int[] A = getNumArray();
         int[] shuffle_A = shuffleNumArray(A);
 
         Sorter sorter = new Sorter();
         int[] result = sorter.bubbleSort(shuffle_A);
+
+        // 정렬 후
+        if (A.length <= 100) {
+            System.out.println(Arrays.toString(result));
+        }
+
+        assertArrayEquals(result, A);
+    }
+
+    @RepeatedTest(5)
+    void insertionSort() {
+        int[] A = getNumArray();
+        int[] shuffle_A = shuffleNumArray(A);
+
+        Sorter sorter = new Sorter();
+        int[] result = sorter.insertionSort(shuffle_A);
 
         // 정렬 후
         if (A.length <= 100) {
