@@ -33,6 +33,13 @@ class SorterTest {
                               .mapToInt(Integer::intValue)
                               .toArray();
 
+//        Arrays.sort(shuffle_A);
+
+        // 정렬 전 배열 출력
+        if (A.length <= 100) {
+            System.out.println("정렬 전:" + Arrays.toString(shuffle_A));
+        }
+
         return shuffle_A;
     }
 
@@ -46,7 +53,7 @@ class SorterTest {
 
         // 정렬 후
         if (A.length <= 100) {
-            System.out.println(Arrays.toString(result));
+            System.out.println("정렬 후:" + Arrays.toString(result));
         }
 
         assertArrayEquals(result, A);
@@ -62,7 +69,7 @@ class SorterTest {
 
         // 정렬 후
         if (A.length <= 100) {
-            System.out.println(Arrays.toString(result));
+            System.out.println("정렬 후:" + Arrays.toString(result));
         }
 
         assertArrayEquals(result, A);
@@ -78,7 +85,23 @@ class SorterTest {
 
         // 정렬 후
         if (A.length <= 100) {
-            System.out.println(Arrays.toString(result));
+            System.out.println("정렬 후:" + Arrays.toString(result));
+        }
+
+        assertArrayEquals(result, A);
+    }
+
+    @RepeatedTest(5)
+    void shellSort() {
+        int[] A = getNumArray();
+        int[] shuffle_A = shuffleNumArray(A);
+
+        Sorter sorter = new Sorter();
+        int[] result = sorter.shellSort(shuffle_A);
+
+        // 정렬 후
+        if (A.length <= 100) {
+            System.out.println("정렬 후:" + Arrays.toString(result));
         }
 
         assertArrayEquals(result, A);
