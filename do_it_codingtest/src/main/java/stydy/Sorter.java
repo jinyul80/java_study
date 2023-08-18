@@ -115,7 +115,7 @@ public class Sorter {
      * @param first
      * @param gap
      */
-    void shellSortSub(int[] arr, int first, int gap) {
+    private void shellSortSub(int[] arr, int first, int gap) {
         int idx1 = 0;
         int keyIdx = 0;
         int keyNum = 0;
@@ -137,5 +137,82 @@ public class Sorter {
             arr[idx1 + gap] = keyNum;
         }
     }
+
+
+    /**
+     * 병합 정렬 메서드(내림차순 정렬)
+     *
+     * @param arr
+     * @return
+     */
+    public int[] mergeSort(int[] arr) {
+
+        int[] temp_arr = new int[arr.length];
+
+        mergeSortSub(arr, temp_arr, 0, arr.length - 1);
+
+        return arr;
+    }
+
+    /**
+     * 병합 정렬 서브 메서드(배열 분리)
+     *
+     * @param arr
+     * @param temp_arr
+     * @param left
+     * @param right
+     */
+    private void mergeSortSub(int[] arr, int[] temp_arr, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) / 2; // 리스트를 균등 분할
+
+            mergeSortSub(arr, temp_arr, left, mid);             // 앞 부분 리스트
+            mergeSortSub(arr, temp_arr, mid + 1, right); // 뒷 부분 리스트
+
+            merge(arr, temp_arr, left, mid, right); // 정렬된 2개의 부분 배열을 병합
+        }
+
+    }
+
+    /**
+     * 병합 정렬 서브 메서드(정렬하면서 병합)
+     *
+     * @param arr
+     * @param temp_arr
+     * @param left
+     * @param mid
+     * @param right
+     */
+    private void merge(int[] arr, int[] temp_arr, int left, int mid, int right) {
+        int i = left;
+        int j = mid + 1;
+        int k = left;
+
+        while (i <= mid && j <= right) {
+            // 2개의 리스트에서 내림차순 정렬로 큰 값을 먼저 사용
+            if (arr[i] < arr[j]) {
+                temp_arr[k++] = arr[j++];
+            } else {
+                temp_arr[k++] = arr[i++];
+            }
+        }
+
+        // 남아 있는 값들을 일괄로 복사
+        if (i > mid) {
+            for (int l = j; l <= right; l++) {
+                temp_arr[k++] = arr[l];
+            }
+        } else {
+            for (int l = i; l <= mid; l++) {
+                temp_arr[k++] = arr[l];
+            }
+        }
+
+        // 임시 배열에 있는 리스트를 원본 배열에 재복사
+        for (int l = left; l <= right; l++) {
+            arr[l] = temp_arr[l];
+        }
+    }
+
 
 }
